@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liyuyouguo.mapper.CategoryMapper">
+
+    <sql id="Base_Column_List">
+        ${alias}.id,
+        ${alias}.name,
+        ${alias}.keywords,
+        ${alias}.front_desc,
+        ${alias}.parent_id,
+        ${alias}.sort_order,
+        ${alias}.show_index,
+        ${alias}.is_show,
+        ${alias}.icon_url,
+        ${alias}.img_url,
+        ${alias}.`level`,
+        ${alias}.front_name,
+        ${alias}.p_height,
+        ${alias}.is_category,
+        ${alias}.is_channel
+    </sql>
+
+</mapper>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liyuyouguo.mapper.CartMapper">
+
+    <sql id="Base_Column_List">
+        ${alias}.id,
+        ${alias}.user_id,
+        ${alias}.goods_id,
+        ${alias}.goods_sn,
+        ${alias}.product_id,
+        ${alias}.goods_name,
+        ${alias}.goods_aka,
+        ${alias}.goods_weight,
+        ${alias}.add_price,
+        ${alias}.retail_price,
+        ${alias}.number,
+        ${alias}.goods_specifition_name_value,
+        ${alias}.goods_specifition_ids,
+        ${alias}.checked,
+        ${alias}.list_pic_url,
+        ${alias}.freight_template_id,
+        ${alias}.is_on_sale,
+        ${alias}.add_time,
+        ${alias}.is_fast,
+        ${alias}.is_delete
+    </sql>
+
+</mapper>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liyuyouguo.mapper.OrderExpressMapper">
+
+    <sql id="Base_Column_List">
+        ${alias}.id,
+        ${alias}.order_id,
+        ${alias}.shipper_id,
+        ${alias}.shipper_name,
+        ${alias}.shipper_code,
+        ${alias}.logistic_code,
+        ${alias}.traces,
+        ${alias}.is_finish,
+        ${alias}.request_count,
+        ${alias}.request_time,
+        ${alias}.add_time,
+        ${alias}.update_time,
+        ${alias}.express_status,
+        ${alias}.express_type,
+        ${alias}.region_code
+    </sql>
+
+</mapper>

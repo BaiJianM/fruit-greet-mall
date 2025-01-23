@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liyuyouguo.mapper.FootprintMapper">
+
+    <sql id="Base_Column_List">
+        ${alias}.id,
+        ${alias}.user_id,
+        ${alias}.goods_id,
+        ${alias}.add_time
+    </sql>
+    <select id="getFootprintByUserId" resultType="com.liyuyouguo.server.entity.shop.Footprint">
+        select
+        <include refid="Base_Column_List">
+            <property name="alias" value="f"/>
+        </include>
+        from hiolabs_footprint f
+        left join hiolabs_goods g on f.goods_id = g.id
+        where f.user_id = #{userId} and f.is_delete = 0
+        order by f.add_time desc
+    </select>
+
+</mapper>

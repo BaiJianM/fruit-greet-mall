@@ -7,10 +7,10 @@
         <artifactId>fruit-greet-mall</artifactId>
         <version>0.0.1</version>
     </parent>
-    <artifactId>admin</artifactId>
+    <artifactId>server</artifactId>
     <version>0.0.1</version>
-    <name>admin</name>
-    <description>admin</description>
+    <name>server</name>
+    <description>server</description>
 
     <build>
         <plugins>
@@ -20,7 +20,7 @@
                 <version>${spring-boot.version}</version>
                 <configuration>
                     <!-- 指定该Main Class为全局的唯一入口 -->
-                    <mainClass>com.liyuyouguo.admin.AdminApplication</mainClass>
+                    <mainClass>com.liyuyouguo.server.ServerApplication</mainClass>
                     <includeSystemScope>true</includeSystemScope>
                 </configuration>
                 <executions>
