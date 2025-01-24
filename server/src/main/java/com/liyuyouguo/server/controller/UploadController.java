@@ -1,8 +1,8 @@
 package com.liyuyouguo.server.controller;
 
-import com.liyuyouguo.server.annotations.FruitShopController;
-import com.liyuyouguo.server.commons.FruitShopResponse;
-import com.liyuyouguo.server.config.FruitShopProperties;
+import com.liyuyouguo.common.annotations.FruitShopController;
+import com.liyuyouguo.common.commons.FruitShopResponse;
+import com.liyuyouguo.common.config.FruitShopProperties;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

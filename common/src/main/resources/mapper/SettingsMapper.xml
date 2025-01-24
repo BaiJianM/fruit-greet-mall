@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liyuyouguo.mapper.SettingsMapper">
+
+    <sql id="Base_Column_List">
+        ${alias}.id,
+        ${alias}.auto_delivery,
+        ${alias}.name,
+        ${alias}.tel,
+        ${alias}.province_name,
+        ${alias}.city_name,
+        ${alias}.exp_area_name,
+        ${alias}.address,
+        ${alias}.discovery_img_height,
+        ${alias}.discovery_img,
+        ${alias}.goods_id,
+        ${alias}.city_id,
+        ${alias}.province_id,
+        ${alias}.district_id,
+        ${alias}.countdown,
+        ${alias}.reset
+    </sql>
+
+</mapper>

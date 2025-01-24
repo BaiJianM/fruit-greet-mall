@@ -1,9 +1,9 @@
 package com.liyuyouguo.server.controller.shop;
 
-import com.liyuyouguo.server.annotations.FruitShopController;
-import com.liyuyouguo.server.beans.vo.shop.SearchIndexVo;
-import com.liyuyouguo.server.commons.FruitShopResponse;
-import com.liyuyouguo.server.service.shop.SearchService;
+import com.liyuyouguo.common.annotations.FruitShopController;
+import com.liyuyouguo.common.beans.vo.shop.SearchIndexVo;
+import com.liyuyouguo.common.commons.FruitShopResponse;
+import com.liyuyouguo.server.service.SearchService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;

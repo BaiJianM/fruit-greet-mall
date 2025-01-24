@@ -1,12 +1,12 @@
 package com.liyuyouguo.server.controller.shop;
 
-import com.liyuyouguo.server.annotations.FruitShopController;
-import com.liyuyouguo.server.beans.dto.shop.SettingsSaveDto;
-import com.liyuyouguo.server.commons.FruitShopResponse;
-import com.liyuyouguo.server.entity.shop.ShowSettings;
-import com.liyuyouguo.server.entity.shop.User;
-import com.liyuyouguo.server.service.UserService;
-import com.liyuyouguo.server.service.shop.SettingsService;
+import com.liyuyouguo.common.annotations.FruitShopController;
+import com.liyuyouguo.common.beans.dto.shop.SettingsSaveDto;
+import com.liyuyouguo.common.commons.FruitShopResponse;
+import com.liyuyouguo.common.entity.shop.ShowSettings;
+import com.liyuyouguo.common.entity.shop.User;
+import com.liyuyouguo.common.service.UserService;
+import com.liyuyouguo.server.service.SettingsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;

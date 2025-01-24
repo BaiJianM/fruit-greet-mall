@@ -1,12 +1,12 @@
 package com.liyuyouguo.server.controller.shop;
 
-import com.liyuyouguo.server.annotations.FruitShopController;
-import com.liyuyouguo.server.beans.PageResult;
-import com.liyuyouguo.server.beans.dto.shop.CatalogQueryDto;
-import com.liyuyouguo.server.commons.FruitShopResponse;
-import com.liyuyouguo.server.entity.shop.Category;
-import com.liyuyouguo.server.entity.shop.Goods;
-import com.liyuyouguo.server.service.shop.CategoryService;
+import com.liyuyouguo.common.annotations.FruitShopController;
+import com.liyuyouguo.common.beans.PageResult;
+import com.liyuyouguo.common.beans.dto.shop.CatalogQueryDto;
+import com.liyuyouguo.common.commons.FruitShopResponse;
+import com.liyuyouguo.common.entity.shop.Category;
+import com.liyuyouguo.common.entity.shop.Goods;
+import com.liyuyouguo.server.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;

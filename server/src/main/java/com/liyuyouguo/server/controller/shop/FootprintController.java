@@ -1,11 +1,11 @@
 package com.liyuyouguo.server.controller.shop;
 
-import com.liyuyouguo.server.annotations.FruitShopController;
-import com.liyuyouguo.server.beans.FruitShopPage;
-import com.liyuyouguo.server.beans.PageResult;
-import com.liyuyouguo.server.commons.FruitShopResponse;
-import com.liyuyouguo.server.entity.shop.Footprint;
-import com.liyuyouguo.server.service.shop.FootPrintService;
+import com.liyuyouguo.common.annotations.FruitShopController;
+import com.liyuyouguo.common.beans.FruitShopPage;
+import com.liyuyouguo.common.beans.PageResult;
+import com.liyuyouguo.common.commons.FruitShopResponse;
+import com.liyuyouguo.common.entity.shop.Footprint;
+import com.liyuyouguo.server.service.FootPrintService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;

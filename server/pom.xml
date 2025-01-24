@@ -12,6 +12,14 @@
     <name>server</name>
     <description>server</description>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.liyuyouguo</groupId>
+            <artifactId>common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+
     <build>
         <plugins>
             <plugin>

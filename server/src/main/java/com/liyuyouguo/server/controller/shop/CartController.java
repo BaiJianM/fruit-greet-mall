@@ -1,15 +1,15 @@
 package com.liyuyouguo.server.controller.shop;
 
-import com.liyuyouguo.server.annotations.FruitShopController;
-import com.liyuyouguo.server.beans.dto.shop.CartAddDto;
-import com.liyuyouguo.server.beans.dto.shop.CartCheckedDto;
-import com.liyuyouguo.server.beans.dto.shop.CartDeleteDto;
-import com.liyuyouguo.server.beans.dto.shop.CartUpdateDto;
-import com.liyuyouguo.server.beans.vo.shop.CartCheckoutVo;
-import com.liyuyouguo.server.beans.vo.shop.CartCountVo;
-import com.liyuyouguo.server.beans.vo.shop.CartInfoVo;
-import com.liyuyouguo.server.commons.FruitShopResponse;
-import com.liyuyouguo.server.service.shop.CartService;
+import com.liyuyouguo.common.annotations.FruitShopController;
+import com.liyuyouguo.common.beans.dto.shop.CartAddDto;
+import com.liyuyouguo.common.beans.dto.shop.CartCheckedDto;
+import com.liyuyouguo.common.beans.dto.shop.CartDeleteDto;
+import com.liyuyouguo.common.beans.dto.shop.CartUpdateDto;
+import com.liyuyouguo.common.beans.vo.shop.CartCheckoutVo;
+import com.liyuyouguo.common.beans.vo.shop.CartCountVo;
+import com.liyuyouguo.common.beans.vo.shop.CartInfoVo;
+import com.liyuyouguo.common.commons.FruitShopResponse;
+import com.liyuyouguo.server.service.CartService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

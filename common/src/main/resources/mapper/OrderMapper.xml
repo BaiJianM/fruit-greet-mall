@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liyuyouguo.mapper.OrderMapper">
+
+    <sql id="Base_Column_List">
+        ${alias}.id,
+        ${alias}.order_sn,
+        ${alias}.user_id,
+        ${alias}.order_status,
+        ${alias}.offline_pay,
+        ${alias}.shipping_status,
+        ${alias}.print_status,
+        ${alias}.pay_status,
+        ${alias}.consignee,
+        ${alias}.country,
+        ${alias}.province,
+        ${alias}.city,
+        ${alias}.district,
+        ${alias}.address,
+        ${alias}.print_info,
+        ${alias}.mobile,
+        ${alias}.postscript,
+        ${alias}.admin_memo,
+        ${alias}.shipping_fee,
+        ${alias}.pay_name,
+        ${alias}.pay_id,
+        ${alias}.change_price,
+        ${alias}.actual_price,
+        ${alias}.order_price,
+        ${alias}.goods_price,
+        ${alias}.add_time,
+        ${alias}.pay_time,
+        ${alias}.shipping_time,
+        ${alias}.confirm_time,
+        ${alias}.deal_done_time,
+        ${alias}.freight_price,
+        ${alias}.express_value,
+        ${alias}.remark,
+        ${alias}.order_type,
+        ${alias}.is_delete
+    </sql>
+
+</mapper>
