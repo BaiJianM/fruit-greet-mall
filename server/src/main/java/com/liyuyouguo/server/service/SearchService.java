@@ -1,7 +1,7 @@
 package com.liyuyouguo.server.service;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.liyuyouguo.common.beans.vo.shop.SearchIndexVo;
+import com.liyuyouguo.common.beans.vo.SearchIndexVo;
 import com.liyuyouguo.common.entity.shop.Keywords;
 import com.liyuyouguo.common.entity.shop.SearchHistory;
 import com.liyuyouguo.common.mapper.KeywordsMapper;

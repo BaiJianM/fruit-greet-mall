@@ -4,8 +4,8 @@ import cn.binarywang.wx.miniapp.api.WxMaService;
 import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.liyuyouguo.common.beans.dto.shop.SettingsSaveDto;
-import com.liyuyouguo.common.beans.vo.shop.UserLoginInfoVo;
-import com.liyuyouguo.common.commons.FruitShopException;
+import com.liyuyouguo.common.beans.vo.UserLoginInfoVo;
+import com.liyuyouguo.common.commons.FruitGreetException;
 import com.liyuyouguo.common.commons.SystemError;
 import com.liyuyouguo.common.entity.shop.User;
 import com.liyuyouguo.common.mapper.UserMapper;
@@ -91,7 +91,7 @@ public class UserService {
             user.setNickname(new String(Base64.getDecoder().decode(user.getNickname())));
             return user;
         } else {
-            throw new FruitShopException(SystemError.LOGIN_FIRST);
+            throw new FruitGreetException(SystemError.LOGIN_FIRST);
         }
     }
 

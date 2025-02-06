@@ -3,10 +3,10 @@ package com.liyuyouguo.server.service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.liyuyouguo.common.beans.vo.shop.GoodsInfoVo;
-import com.liyuyouguo.common.beans.vo.shop.ProductInfoVo;
-import com.liyuyouguo.common.commons.FruitShopException;
-import com.liyuyouguo.common.commons.ShopError;
+import com.liyuyouguo.common.beans.vo.GoodsInfoVo;
+import com.liyuyouguo.common.beans.vo.ProductInfoVo;
+import com.liyuyouguo.common.commons.FruitGreetException;
+import com.liyuyouguo.common.commons.FruitGreetError;
 import com.liyuyouguo.common.entity.shop.Goods;
 import com.liyuyouguo.common.entity.shop.GoodsGallery;
 import com.liyuyouguo.common.entity.shop.Product;
@@ -49,7 +49,7 @@ public class GoodsService {
                 .eq(Goods::getId, goodsId)
                 .eq(Goods::getIsDelete, 0));
         if (goods == null) {
-            throw new FruitShopException(ShopError.GOODS_NOT_EXIST);
+            throw new FruitGreetException(FruitGreetError.GOODS_NOT_EXIST);
         }
         List<GoodsGallery> goodsGalleries = galleryMapper.selectPage(new Page<>(1, 6), Wrappers.lambdaQuery(GoodsGallery.class)
                 .eq(GoodsGallery::getGoodsId, goodsId)

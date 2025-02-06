@@ -1,10 +1,10 @@
 package com.liyuyouguo.server.service;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.liyuyouguo.common.beans.vo.shop.GoodsSpecificationVo;
-import com.liyuyouguo.common.beans.vo.shop.ProductInfoVo;
-import com.liyuyouguo.common.commons.FruitShopException;
-import com.liyuyouguo.common.commons.ShopError;
+import com.liyuyouguo.common.beans.vo.GoodsSpecificationVo;
+import com.liyuyouguo.common.beans.vo.ProductInfoVo;
+import com.liyuyouguo.common.commons.FruitGreetException;
+import com.liyuyouguo.common.commons.FruitGreetError;
 import com.liyuyouguo.common.entity.shop.GoodsSpecification;
 import com.liyuyouguo.common.entity.shop.Product;
 import com.liyuyouguo.common.entity.shop.Specification;
@@ -45,7 +45,7 @@ public class ProductService {
                 .eq(GoodsSpecification::getIsDelete, 0));
         for (GoodsSpecification gSpec : gSpecList) {
             GoodsSpecificationVo gSpecVo = ConvertUtils.convert(gSpec, GoodsSpecificationVo::new)
-                    .orElseThrow(() -> new FruitShopException(ShopError.SKU_ERROR));
+                    .orElseThrow(() -> new FruitGreetException(FruitGreetError.SKU_ERROR));
             Product product = productMapper.selectOne(Wrappers.lambdaQuery(Product.class)
                     .eq(Product::getGoodsSpecificationIds, gSpec.getId())
                     .eq(Product::getIsDelete, 0));

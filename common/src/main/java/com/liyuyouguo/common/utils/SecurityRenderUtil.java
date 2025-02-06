@@ -1,7 +1,7 @@
 package com.liyuyouguo.common.utils;
 
 import com.alibaba.fastjson2.JSON;
-import com.liyuyouguo.common.commons.FruitShopResponse;
+import com.liyuyouguo.common.commons.FruitGreetResponse;
 import com.liyuyouguo.common.commons.SystemError;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +32,7 @@ public class SecurityRenderUtil {
     public static void renderErrorResponse(HttpServletResponse response, HttpStatus status, String msg) throws IOException {
         response.setStatus(status.value());
         response.setContentType(CONTENT_TYPE);
-        FruitShopResponse<String> fail = FruitShopResponse.fail("", msg, status);
+        FruitGreetResponse<String> fail = FruitGreetResponse.fail("", msg, status);
         response.getWriter().write(JSON.toJSONString(fail.getBody()));
     }
 
@@ -45,7 +45,7 @@ public class SecurityRenderUtil {
     public static void renderTokenErrorResponse(HttpServletResponse response) throws IOException {
         response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         response.setContentType(CONTENT_TYPE);
-        FruitShopResponse<String> fail = FruitShopResponse.fail("", SystemError.TOKEN_WRONG);
+        FruitGreetResponse<String> fail = FruitGreetResponse.fail("", SystemError.TOKEN_WRONG);
         response.getWriter().write(JSON.toJSONString(fail.getBody()));
     }
 
@@ -60,7 +60,7 @@ public class SecurityRenderUtil {
     public static void renderSuccessResponse(HttpServletResponse response, String msg, Object data) throws IOException {
         response.setStatus(HttpServletResponse.SC_OK);
         response.setContentType(CONTENT_TYPE);
-        FruitShopResponse<?> success = FruitShopResponse.success(data, msg, HttpStatus.OK);
+        FruitGreetResponse<?> success = FruitGreetResponse.success(data, msg, HttpStatus.OK);
         response.getWriter().write(JSON.toJSONString(success.getBody()));
     }
 

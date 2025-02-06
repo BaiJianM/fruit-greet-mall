@@ -4,7 +4,7 @@ import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONWriter;
 import com.liyuyouguo.common.annotations.operatelog.OperationLog;
 import com.liyuyouguo.common.beans.UserInfo;
-import com.liyuyouguo.common.commons.FruitShopException;
+import com.liyuyouguo.common.commons.FruitGreetException;
 import com.liyuyouguo.common.config.operatelog.context.OperateLogContext;
 import com.liyuyouguo.common.config.operatelog.function.OperateLogFunctionRegistrar;
 import com.liyuyouguo.common.config.operatelog.pojo.OperateLogDto;
@@ -224,7 +224,7 @@ public class SystemOperateLogAspect {
         // 在LogContext中写入执行后信息，将切面方法执行的异常信息写入日志记录上下文中
         OperateLogContext.putVariables(OperateLogContext.CONTEXT_KEY_NAME_ERROR_MSG, e.getMessage());
         // 如果配置了方法执行异常后继续生成操作日志的策略则继续执行(如果配置了继续生成日志的策略，则异常仍必须为主动异常类型才执行)
-        if (properties.isOnError() && e instanceof FruitShopException fruitShopException) {
+        if (properties.isOnError() && e instanceof FruitGreetException fruitGreetException) {
             // 遍历执行方法后解析切面逻辑
             loadAfterMethodInvoke(afterExec, pjp, logDtoMap);
             // 写入异常执行后日志
@@ -234,7 +234,7 @@ public class SystemOperateLogAspect {
                 // 设置执行结果为false，
                 operateLogDto.setSuccess(false);
                 // 写入执行异常信息
-                operateLogDto.setException(fruitShopException.getDescribe());
+                operateLogDto.setException(fruitGreetException.getDescribe());
             });
         }
     }

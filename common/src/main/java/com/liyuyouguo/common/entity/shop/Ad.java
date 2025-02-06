@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 /**
  * @author baijianmin
  */
@@ -45,7 +47,7 @@ public class Ad {
 
     @Schema(description = "unknown", example = "1")
     @JsonProperty("end_time")
-    private String endTime;
+    private LocalDateTime endTime;
 
     @Schema(description = "unknown", example = "1")
     private Integer enabled;

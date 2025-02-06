@@ -9,7 +9,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @author baijianmin
  */
 @Data
-@ConfigurationProperties(prefix = "answer.kaptcha")
+@ConfigurationProperties(prefix = "fruit-shop.kaptcha")
 public class KaptchaProperties {
 
     /**

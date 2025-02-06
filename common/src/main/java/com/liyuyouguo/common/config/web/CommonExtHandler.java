@@ -1,7 +1,7 @@
 package com.liyuyouguo.common.config.web;
 
-import com.liyuyouguo.common.commons.FruitShopException;
-import com.liyuyouguo.common.commons.FruitShopResponse;
+import com.liyuyouguo.common.commons.FruitGreetException;
+import com.liyuyouguo.common.commons.FruitGreetResponse;
 import com.liyuyouguo.common.commons.SystemError;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -37,9 +37,9 @@ public class CommonExtHandler {
      * @return AnswerResponse<T> 自定义响应对象
      */
     @ExceptionHandler(value = Exception.class)
-    public <T> FruitShopResponse<T> handleException(Exception e) {
+    public <T> FruitGreetResponse<T> handleException(Exception e) {
         log.error("Exception异常: ", e);
-        return FruitShopResponse.fail();
+        return FruitGreetResponse.fail();
     }
 
     /**
@@ -49,9 +49,9 @@ public class CommonExtHandler {
      * @return AnswerResponse<SystemError> 自定义响应对象
      */
     @ExceptionHandler(value = HttpMessageNotReadableException.class)
-    public FruitShopResponse<SystemError> validJson(HttpMessageNotReadableException e) {
+    public FruitGreetResponse<SystemError> validJson(HttpMessageNotReadableException e) {
         log.info("Json异常: ", e);
-        return FruitShopResponse.fail(SystemError.ILLEGAL_JSON, "", HttpStatus.BAD_REQUEST);
+        return FruitGreetResponse.fail(SystemError.ILLEGAL_JSON, "", HttpStatus.BAD_REQUEST);
     }
 
     /**
@@ -61,10 +61,10 @@ public class CommonExtHandler {
      * @return AnswerResponse<String> 自定义响应对象
      */
     @ExceptionHandler(value = HttpRequestMethodNotSupportedException.class)
-    public FruitShopResponse<String> validHttpMethod(HttpRequestMethodNotSupportedException e) {
+    public FruitGreetResponse<String> validHttpMethod(HttpRequestMethodNotSupportedException e) {
         log.info("请求方法不匹配: ", e);
         String format = String.format("该接口支持的请求方法为 [%s]", Objects.requireNonNull(e.getSupportedMethods())[0]);
-        return FruitShopResponse.fail(format, SystemError.NOT_SUPPORTED_METHOD, HttpStatus.BAD_REQUEST);
+        return FruitGreetResponse.fail(format, SystemError.NOT_SUPPORTED_METHOD, HttpStatus.BAD_REQUEST);
     }
 
     /**
@@ -74,7 +74,7 @@ public class CommonExtHandler {
      * @return AnswerResponse<String> 自定义响应对象
      */
     @ExceptionHandler(value = MissingServletRequestParameterException.class)
-    public FruitShopResponse<String> validRequestParamMissing(MissingServletRequestParameterException e) {
+    public FruitGreetResponse<String> validRequestParamMissing(MissingServletRequestParameterException e) {
         // 参数名
         String parameterName = e.getParameterName();
         // 参数类型
@@ -82,7 +82,7 @@ public class CommonExtHandler {
         log.info("请求参数缺失，参数名[{}]，参数类型[{}]", parameterName, parameterType);
         String msg = "参数名[%s]，参数类型[%s]";
         String format = String.format(msg, parameterName, parameterType);
-        return FruitShopResponse.fail(format, SystemError.PARAMETER_MISSING, HttpStatus.BAD_REQUEST);
+        return FruitGreetResponse.fail(format, SystemError.PARAMETER_MISSING, HttpStatus.BAD_REQUEST);
     }
 
     /**
@@ -93,11 +93,11 @@ public class CommonExtHandler {
      */
     @SuppressWarnings("all")
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public FruitShopResponse<?> validEntity(MethodArgumentNotValidException e) {
+    public FruitGreetResponse<?> validEntity(MethodArgumentNotValidException e) {
         Map<String, String> collect = e.getBindingResult().getFieldErrors().stream()
                 .collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage));
         String msg = String.join(",", collect.values());
-        return FruitShopResponse.fail(msg, SystemError.PARAMETER_ABNORMALITY, HttpStatus.BAD_REQUEST);
+        return FruitGreetResponse.fail(msg, SystemError.PARAMETER_ABNORMALITY, HttpStatus.BAD_REQUEST);
     }
 
     /**
@@ -107,7 +107,7 @@ public class CommonExtHandler {
      * @return AnswerResponse<String> 自定义响应对象
      */
     @ExceptionHandler(BindException.class)
-    public FruitShopResponse<String> exceptionHandler(BindException e) {
+    public FruitGreetResponse<String> exceptionHandler(BindException e) {
         List<ObjectError> allErrors = e.getBindingResult().getAllErrors();
         Map<String, String> collect = new HashMap<>(16);
         allErrors.forEach(error -> {
@@ -115,7 +115,7 @@ public class CommonExtHandler {
             collect.put(fieldError.getField(), fieldError.getDefaultMessage());
         });
         String msg = String.join(",", collect.values());
-        return FruitShopResponse.fail(msg, SystemError.PARAMETER_ABNORMALITY, HttpStatus.BAD_REQUEST);
+        return FruitGreetResponse.fail(msg, SystemError.PARAMETER_ABNORMALITY, HttpStatus.BAD_REQUEST);
     }
 
     /**
@@ -124,9 +124,9 @@ public class CommonExtHandler {
      * @param e 自定义异常
      * @return AnswerResponse<String> 自定义响应对象
      */
-    @ExceptionHandler(value = FruitShopException.class)
-    public FruitShopResponse<String> handleAnswerException(FruitShopException e) {
+    @ExceptionHandler(value = FruitGreetException.class)
+    public FruitGreetResponse<String> handleAnswerException(FruitGreetException e) {
         log.error("AnswerException异常: {}", e.getDescribe());
-        return FruitShopResponse.warn(null, e);
+        return FruitGreetResponse.warn(null, e);
     }
 }

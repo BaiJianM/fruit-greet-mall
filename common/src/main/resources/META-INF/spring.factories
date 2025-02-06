@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.liyuyouguo.common.config.FruitGreetAutoConfiguration,\
+  com.liyuyouguo.common.config.web.authcode.KaptchaAutoConfiguration

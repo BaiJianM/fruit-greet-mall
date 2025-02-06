@@ -1,7 +1,7 @@
 package com.liyuyouguo.common.beans.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.liyuyouguo.common.beans.FruitShopPage;
+import com.liyuyouguo.common.beans.FruitGreetPage;
 import com.liyuyouguo.common.beans.enums.LogTypeEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -18,7 +18,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = false)
 @Data
 @Schema(description = "系统操作日志搜索传参")
-public class LogSearchDto extends FruitShopPage {
+public class LogSearchDto extends FruitGreetPage {
 
     @Schema(description = "日志类型", hidden = true)
     private LogTypeEnum logType;

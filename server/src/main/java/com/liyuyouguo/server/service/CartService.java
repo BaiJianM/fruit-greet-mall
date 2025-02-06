@@ -5,11 +5,11 @@ import com.liyuyouguo.common.beans.dto.shop.CartAddDto;
 import com.liyuyouguo.common.beans.dto.shop.CartCheckedDto;
 import com.liyuyouguo.common.beans.dto.shop.CartDeleteDto;
 import com.liyuyouguo.common.beans.dto.shop.CartUpdateDto;
-import com.liyuyouguo.common.beans.vo.shop.*;
+import com.liyuyouguo.common.beans.vo.*;
 import com.liyuyouguo.common.entity.shop.*;
 import com.liyuyouguo.common.mapper.*;
-import com.liyuyouguo.common.commons.FruitShopException;
-import com.liyuyouguo.common.commons.ShopError;
+import com.liyuyouguo.common.commons.FruitGreetException;
+import com.liyuyouguo.common.commons.FruitGreetError;
 import com.liyuyouguo.common.utils.ConvertUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -174,13 +174,13 @@ public class CartService {
         // 判断商品是否可以购买
         Goods goodsInfo = goodsMapper.selectById(goodsId);
         if (goodsInfo == null || goodsInfo.getIsOnSale() == 0) {
-            throw new FruitShopException(ShopError.ITEM_NOT_AVAILABLE);
+            throw new FruitGreetException(FruitGreetError.ITEM_NOT_AVAILABLE);
         }
 
         // 取得规格的信息，判断规格库存
         Product productInfo = productMapper.selectById(productId);
         if (productInfo == null || productInfo.getGoodsNumber() < number) {
-            throw new FruitShopException(ShopError.INSUFFICIENT_STOCK);
+            throw new FruitGreetException(FruitGreetError.INSUFFICIENT_STOCK);
         }
 
         // 查询购物车中是否已有该规格商品
@@ -256,7 +256,7 @@ public class CartService {
             } else {
                 // 如果购物车中已经存在该商品，则更新数量
                 if (productInfo.getGoodsNumber() < (number + cartInfo.getNumber())) {
-                    throw new FruitShopException(ShopError.INSUFFICIENT_STOCK);
+                    throw new FruitGreetException(FruitGreetError.INSUFFICIENT_STOCK);
                 }
                 cartInfo.setRetailPrice(retailPrice);
                 cartInfo.setNumber(cartInfo.getNumber() + number);
@@ -290,14 +290,14 @@ public class CartService {
                 .eq(Product::getId, productId)
                 .eq(Product::getIsDelete, 0));
         if (productInfo == null || productInfo.getGoodsNumber() < number) {
-            throw new FruitShopException(ShopError.INSUFFICIENT_STOCK);
+            throw new FruitGreetException(FruitGreetError.INSUFFICIENT_STOCK);
         }
         // 获取购物车中对应商品信息
         Cart cartInfo = cartMapper.selectOne(Wrappers.lambdaQuery(Cart.class)
                 .eq(Cart::getId, dto.getCartId())
                 .eq(Cart::getIsDelete, 0));
         if (cartInfo == null) {
-            throw new FruitShopException(ShopError.CART_ITEM_NOT_EXIST);
+            throw new FruitGreetException(FruitGreetError.CART_ITEM_NOT_EXIST);
         }
         // 如果是同一个商品规格，只更新数量
         if (cartInfo.getProductId().equals(productId)) {
@@ -305,7 +305,7 @@ public class CartService {
             cartMapper.updateById(cartInfo);
             return this.getCart(0);
         }
-        throw new FruitShopException(ShopError.INVALID_CART_OPERATION);
+        throw new FruitGreetException(FruitGreetError.INVALID_CART_OPERATION);
     }
 
     /**
@@ -605,12 +605,12 @@ public class CartService {
         // 查询商品信息，判断是否下架
         Goods goodsInfo = goodsMapper.selectById(goodsId);
         if (goodsInfo == null || goodsInfo.getIsOnSale() == 0) {
-            throw new FruitShopException(ShopError.ITEM_NOT_AVAILABLE);
+            throw new FruitGreetException(FruitGreetError.ITEM_NOT_AVAILABLE);
         }
         // 取得规格的信息,判断规格库存
         Product productInfo = productMapper.selectById(productId);
         if (productInfo == null || productInfo.getGoodsNumber() < number) {
-            throw new FruitShopException(ShopError.INSUFFICIENT_STOCK);
+            throw new FruitGreetException(FruitGreetError.INSUFFICIENT_STOCK);
         }
         // 查询购物车中是否存在此规格商品
         Cart cartInfo = cartMapper.selectOne(Wrappers.lambdaQuery(Cart.class)
@@ -650,7 +650,7 @@ public class CartService {
         } else {
             // 购物车中已存在该商品，更新数量
             if (productInfo.getGoodsNumber() < (number + cartInfo.getNumber())) {
-                throw new FruitShopException(ShopError.INSUFFICIENT_STOCK);
+                throw new FruitGreetException(FruitGreetError.INSUFFICIENT_STOCK);
             }
             cartInfo.setRetailPrice(retailPrice);
             cartInfo.setChecked(1);

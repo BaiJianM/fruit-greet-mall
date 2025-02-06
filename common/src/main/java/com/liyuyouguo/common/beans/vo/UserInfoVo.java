@@ -17,7 +17,7 @@ import java.util.List;
 public class UserInfoVo {
 
     @Schema(description = "用户id")
-    protected Long userId;
+    protected Integer userId;
 
     @Schema(description = "用户真实姓名")
     protected String realName;

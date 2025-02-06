@@ -1,8 +1,8 @@
 package com.liyuyouguo.server.controller;
 
-import com.liyuyouguo.common.annotations.FruitShopController;
-import com.liyuyouguo.common.commons.FruitShopResponse;
-import com.liyuyouguo.common.config.FruitShopProperties;
+import com.liyuyouguo.common.annotations.FruitGreetController;
+import com.liyuyouguo.common.commons.FruitGreetResponse;
+import com.liyuyouguo.common.config.FruitGreetProperties;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -20,18 +20,18 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @Slf4j
 @Tag(name = "文件上传相关接口")
-@FruitShopController("/upload")
+@FruitGreetController("/upload")
 @RequiredArgsConstructor
 public class UploadController {
 
-    private final FruitShopProperties properties;
+    private final FruitGreetProperties properties;
 
     @Operation(summary = "上传文件")
     @Parameter(name = "file", description = "文件", required = true)
     @ApiResponse(description = "文件上传成功后的文件路径", responseCode = "200")
     @PostMapping
-    public FruitShopResponse<String> upload(@RequestParam("file") MultipartFile file) {
-        return FruitShopResponse.success("");
+    public FruitGreetResponse<String> upload(@RequestParam("file") MultipartFile file) {
+        return FruitGreetResponse.success("");
     }
 
 }

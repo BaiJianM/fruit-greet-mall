@@ -5,9 +5,9 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.liyuyouguo.common.beans.FruitShopPage;
+import com.liyuyouguo.common.beans.FruitGreetPage;
 import com.liyuyouguo.common.beans.PageResult;
-import com.liyuyouguo.common.beans.vo.shop.FootprintVo;
+import com.liyuyouguo.common.beans.vo.FootprintVo;
 import com.liyuyouguo.common.entity.shop.Footprint;
 import com.liyuyouguo.common.entity.shop.Goods;
 import com.liyuyouguo.common.mapper.FootprintMapper;
@@ -82,7 +82,7 @@ public class FootPrintService extends ServiceImpl<FootprintMapper, Footprint> im
      * @param pageDto 分页参数
      * @return PageResult<Footprint> 用户足迹
      */
-    public PageResult<Footprint> getFootprintList(FruitShopPage pageDto) {
+    public PageResult<Footprint> getFootprintList(FruitGreetPage pageDto) {
         // TODO 这里少一个从token获取登录人id的操作
         Integer userId = 1048;
         // 分页查询用户的足迹，并关联商品信息

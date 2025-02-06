@@ -8,12 +8,12 @@ import com.liyuyouguo.common.beans.PageResult;
 import com.liyuyouguo.common.beans.dto.shop.OrderQueryDto;
 import com.liyuyouguo.common.beans.dto.shop.OrderSubmitDto;
 import com.liyuyouguo.common.beans.dto.shop.OrderUpdateDto;
-import com.liyuyouguo.common.beans.vo.shop.*;
+import com.liyuyouguo.common.beans.vo.*;
 import com.liyuyouguo.common.entity.shop.*;
 import com.liyuyouguo.common.mapper.*;
-import com.liyuyouguo.common.commons.FruitShopException;
-import com.liyuyouguo.common.commons.ShopError;
-import com.liyuyouguo.common.config.FruitShopProperties;
+import com.liyuyouguo.common.commons.FruitGreetException;
+import com.liyuyouguo.common.commons.FruitGreetError;
+import com.liyuyouguo.common.config.FruitGreetProperties;
 import com.liyuyouguo.common.utils.ConvertUtils;
 import com.liyuyouguo.common.utils.DateUtils;
 import lombok.RequiredArgsConstructor;
@@ -43,7 +43,7 @@ import java.util.*;
 @RequiredArgsConstructor
 public class OrderService {
 
-    private final FruitShopProperties properties;
+    private final FruitGreetProperties properties;
 
     private final OrderMapper orderMapper;
 
@@ -178,7 +178,7 @@ public class OrderService {
         // 根据订单ID查询订单信息
         Order orderInfo = orderMapper.selectById(orderId);
         if (orderInfo == null) {
-            throw new FruitShopException(ShopError.ORDER_NOT_EXIST);
+            throw new FruitGreetException(FruitGreetError.ORDER_NOT_EXIST);
         }
         // 根据订单状态设置状态文本
         return switch (orderInfo.getOrderStatus()) {
@@ -200,7 +200,7 @@ public class OrderService {
         // 查询订单信息
         Order orderInfo = orderMapper.selectById(orderId);
         if (orderInfo == null) {
-            throw new FruitShopException(ShopError.ORDER_NOT_EXIST);
+            throw new FruitGreetException(FruitGreetError.ORDER_NOT_EXIST);
         }
 
         // 获取订单状态
@@ -263,7 +263,7 @@ public class OrderService {
         // 获取订单信息
         Order order = orderMapper.selectById(orderId);
         if (order == null) {
-            throw new FruitShopException(ShopError.ORDER_NOT_EXIST);
+            throw new FruitGreetException(FruitGreetError.ORDER_NOT_EXIST);
         }
         OrderInfoVo orderInfo = ConvertUtils.convert(order, OrderInfoVo::new).orElseThrow();
         addressService.setAddressInfo(orderInfo);
@@ -383,7 +383,7 @@ public class OrderService {
         // 检查订单是否可取消
         OrderHandleOptionVo handleOption = this.getOrderHandleOption(orderId);
         if (handleOption.getCancel()) {
-            throw new FruitShopException(ShopError.ORDER_CANNOT_CANCEL);
+            throw new FruitGreetException(FruitGreetError.ORDER_CANNOT_CANCEL);
         }
 
         // 获取订单商品信息
@@ -421,7 +421,7 @@ public class OrderService {
         // 检查订单是否可取消
         OrderHandleOptionVo handleOption = this.getOrderHandleOption(orderId);
         if (handleOption.getDelete()) {
-            throw new FruitShopException(ShopError.ORDER_CANNOT_DELETE);
+            throw new FruitGreetException(FruitGreetError.ORDER_CANNOT_DELETE);
         }
         return orderMapper.deleteById(orderId);
     }
@@ -436,7 +436,7 @@ public class OrderService {
         // 检查订单是否可确认
         OrderHandleOptionVo handleOption = this.getOrderHandleOption(orderId);
         if (handleOption.getConfirm()) {
-            throw new FruitShopException(ShopError.ORDER_CANNOT_CONFIRM);
+            throw new FruitGreetException(FruitGreetError.ORDER_CANNOT_CONFIRM);
         }
         Order order = orderMapper.selectById(orderId);
         order.setOrderStatus(401);
@@ -476,7 +476,7 @@ public class OrderService {
 
         Address checkedAddress = addressService.getById(addressId);
         if (checkedAddress == null) {
-            throw new FruitShopException(ShopError.NOT_HAVE_ADDRESS);
+            throw new FruitGreetException(FruitGreetError.NOT_HAVE_ADDRESS);
         }
 
         // 获取购物车中选中的商品
@@ -485,7 +485,7 @@ public class OrderService {
                 .eq(Cart::getChecked, 1)
                 .eq(Cart::getIsDelete, 0));
         if (checkedGoodsList.isEmpty()) {
-            throw new FruitShopException(ShopError.NOT_HAVE_GOODS);
+            throw new FruitGreetException(FruitGreetError.NOT_HAVE_GOODS);
         }
 
         // 检查库存和价格是否变化
@@ -501,10 +501,10 @@ public class OrderService {
             }
         }
         if (checkStock > 0) {
-            throw new FruitShopException(ShopError.INSUFFICIENT_STOCK_REORDER);
+            throw new FruitGreetException(FruitGreetError.INSUFFICIENT_STOCK_REORDER);
         }
         if (checkPrice > 0) {
-            throw new FruitShopException(ShopError.PRICE_CHANGED_REORDER);
+            throw new FruitGreetException(FruitGreetError.PRICE_CHANGED_REORDER);
         }
 
         // 获取订单使用的红包
@@ -561,7 +561,7 @@ public class OrderService {
         // 保存订单
         int saveOrder = orderMapper.insert(order);
         if (saveOrder != 1) {
-            throw new FruitShopException(ShopError.ORDER_SUBMIT_ERROR);
+            throw new FruitGreetException(FruitGreetError.ORDER_SUBMIT_ERROR);
         }
 
         // 保存订单商品信息
@@ -641,13 +641,13 @@ public class OrderService {
             OrderExpress expressInfo = orderExpressMapper.selectOne(Wrappers.lambdaQuery(OrderExpress.class)
                     .eq(OrderExpress::getOrderId, orderId));
             if (expressInfo == null) {
-                throw new FruitShopException(ShopError.NO_EXPRESS_DATA);
+                throw new FruitGreetException(FruitGreetError.NO_EXPRESS_DATA);
             }
 
             // 如果is_finish == 1；或者 updateTime 小于 1分钟，
             LocalDateTime updateTime = expressInfo.getUpdateTime();
             if (updateTime == null) {
-                throw new FruitShopException(ShopError.NO_EXPRESS);
+                throw new FruitGreetException(FruitGreetError.NO_EXPRESS);
             }
             long com = Math.abs(Duration.between(LocalDateTime.now(), updateTime).toMinutes());
             int isFinish = expressInfo.getIsFinish();
@@ -692,7 +692,7 @@ public class OrderService {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            throw new FruitShopException(ShopError.QUERY_EXPRESS_ERROR);
+            throw new FruitGreetException(FruitGreetError.QUERY_EXPRESS_ERROR);
         }
     }
 

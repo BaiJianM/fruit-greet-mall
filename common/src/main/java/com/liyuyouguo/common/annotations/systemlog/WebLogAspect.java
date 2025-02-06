@@ -1,8 +1,8 @@
 package com.liyuyouguo.common.annotations.systemlog;
 
 import com.alibaba.fastjson2.JSONObject;
-import com.liyuyouguo.common.commons.FruitShopException;
-import com.liyuyouguo.common.commons.FruitShopResponse;
+import com.liyuyouguo.common.commons.FruitGreetException;
+import com.liyuyouguo.common.commons.FruitGreetResponse;
 import com.liyuyouguo.common.utils.FruitShopUtils;
 import com.liyuyouguo.common.utils.IpUtils;
 import io.swagger.v3.oas.annotations.Operation;
@@ -60,8 +60,8 @@ public class WebLogAspect {
         } catch (Exception e) {
             try {
                 String errMsg = e.getMessage();
-                if (e instanceof FruitShopException fruitShopException) {
-                    errMsg = fruitShopException.getDescribe();
+                if (e instanceof FruitGreetException fruitGreetException) {
+                    errMsg = fruitGreetException.getDescribe();
                 }
                 paramsLogJson.put("Web接口异常", errMsg);
             } catch (Exception ex) {
@@ -70,7 +70,7 @@ public class WebLogAspect {
             throw e;
         } finally {
             try {
-                if (result instanceof FruitShopResponse<?> response) {
+                if (result instanceof FruitGreetResponse<?> response) {
                     paramsLogJson.put("请求返回", response.getBody());
                 } else {
                     paramsLogJson.put("请求返回", result);

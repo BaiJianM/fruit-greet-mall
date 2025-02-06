@@ -54,13 +54,13 @@ public class AuthenticationService {
                 return;
             }
         }
-        // 如果是web管理端登录，只有管理员账号可以登
-        Boolean isWeb = Boolean.valueOf(request.getParameter("isWeb"));
-        if (Boolean.TRUE.equals(isWeb) && Boolean.TRUE.equals(!userInfo.getIsAdmin())) {
-            SecurityRenderUtil.renderErrorResponse(response,
-                    HttpStatus.BAD_REQUEST, SystemError.IS_ADMIN_ERROR.getDescribe());
-            return;
-        }
+//        // 如果是web管理端登录，只有管理员账号可以登
+//        Boolean isWeb = Boolean.valueOf(request.getParameter("isWeb"));
+//        if (Boolean.TRUE.equals(isWeb) && Boolean.TRUE.equals(!userInfo.getIsAdmin())) {
+//            SecurityRenderUtil.renderErrorResponse(response,
+//                    HttpStatus.BAD_REQUEST, SystemError.IS_ADMIN_ERROR.getDescribe());
+//            return;
+//        }
         // 返回的用户信息去掉密码
         userInfo.cleanPassword();
         String token = jwtService.generateToken(userInfo.getUsername());

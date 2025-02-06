@@ -3,7 +3,7 @@ package com.liyuyouguo.common.service;
 import com.google.code.kaptcha.Producer;
 import com.liyuyouguo.common.beans.vo.authcode.AuthCodeResultVo;
 import com.liyuyouguo.common.commons.Constants;
-import com.liyuyouguo.common.commons.FruitShopException;
+import com.liyuyouguo.common.commons.FruitGreetException;
 import com.liyuyouguo.common.commons.SystemError;
 import com.liyuyouguo.common.config.web.authcode.AuthCodeTypeEnum;
 import com.liyuyouguo.common.config.web.authcode.KaptchaProperties;
@@ -84,7 +84,7 @@ public class CaptchaService {
             assert image != null;
             ImageIO.write(image, "jpg", os);
         } catch (IOException e) {
-            throw new FruitShopException(SystemError.AUTH_CODE_ERROR);
+            throw new FruitGreetException(SystemError.AUTH_CODE_ERROR);
         }
         result.setUuid(uuid);
         result.setImg(new String(Base64.getEncoder().encode(os.toByteArray()), StandardCharsets.UTF_8));

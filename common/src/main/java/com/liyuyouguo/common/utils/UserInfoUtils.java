@@ -43,9 +43,9 @@ public class UserInfoUtils {
     /**
      * 获取登录用户id
      *
-     * @return Long 用户id
+     * @return Integer 用户id
      */
-    public static Long getUserId() {
+    public static Integer getUserId() {
         return getUserInfo().getUserId();
     }
 }

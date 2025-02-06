@@ -3,7 +3,7 @@ package com.liyuyouguo.server.service;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.liyuyouguo.common.beans.dto.shop.RegionInfoQueryDto;
 import com.liyuyouguo.common.beans.dto.shop.RegionQueryDto;
-import com.liyuyouguo.common.beans.vo.shop.RegionVo;
+import com.liyuyouguo.common.beans.vo.RegionVo;
 import com.liyuyouguo.common.entity.shop.Region;
 import com.liyuyouguo.common.mapper.RegionMapper;
 import lombok.RequiredArgsConstructor;

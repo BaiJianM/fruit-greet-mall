@@ -1,10 +1,10 @@
 package com.liyuyouguo.server.service;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.liyuyouguo.common.beans.vo.shop.AppInfoVo;
-import com.liyuyouguo.common.beans.vo.shop.CategoryVo;
-import com.liyuyouguo.common.commons.FruitShopException;
-import com.liyuyouguo.common.commons.ShopError;
+import com.liyuyouguo.common.beans.vo.AppInfoVo;
+import com.liyuyouguo.common.beans.vo.CategoryVo;
+import com.liyuyouguo.common.commons.FruitGreetException;
+import com.liyuyouguo.common.commons.FruitGreetError;
 import com.liyuyouguo.common.entity.shop.*;
 import com.liyuyouguo.common.mapper.*;
 import com.liyuyouguo.common.utils.ConvertUtils;
@@ -53,7 +53,7 @@ public class IndexService {
                 .eq(Category::getParentId, 0)
                 .orderByAsc(Category::getSortOrder));
         List<CategoryVo> categoryVos = (List<CategoryVo>) ConvertUtils.convertCollection(categories, CategoryVo::new)
-                .orElseThrow(() -> new FruitShopException(ShopError.INDEX_ERROR));
+                .orElseThrow(() -> new FruitGreetException(FruitGreetError.INDEX_ERROR));
         categoryVos.forEach(categoryVo -> {
             List<Goods> goods = goodsMapper.selectList(Wrappers.lambdaQuery(Goods.class)
                     .eq(Goods::getCategoryId, categoryVo.getId())

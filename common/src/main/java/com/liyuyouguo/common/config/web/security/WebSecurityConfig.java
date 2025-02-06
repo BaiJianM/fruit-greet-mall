@@ -101,6 +101,7 @@ public class WebSecurityConfig {
                     CorsConfiguration corsConfiguration = new CorsConfiguration();
                     // 允许所有域名进行跨域调用
                     List<String> allowList = Arrays.asList("http://127.0.0.1", "http://localhost",
+                            "http://localhost:9528",
                             "https://hw.wesavc.cn");
                     corsConfiguration.setAllowedOriginPatterns(allowList);
                     // 允许跨越发送cookie

@@ -1,6 +1,6 @@
 package com.liyuyouguo.common.beans.dto.shop;
 
-import com.liyuyouguo.common.beans.FruitShopPage;
+import com.liyuyouguo.common.beans.FruitGreetPage;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -9,7 +9,7 @@ import lombok.EqualsAndHashCode;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class OrderQueryDto extends FruitShopPage {
+public class OrderQueryDto extends FruitGreetPage {
 
     private Integer showType;
 
