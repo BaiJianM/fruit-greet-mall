@@ -1,12 +1,8 @@
-package com.liyuyouguo.common.entity.shop;
+package com.liyuyouguo.common.beans.vo;
 
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -15,11 +11,7 @@ import java.time.LocalDateTime;
  * @author baijianmin
  */
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Schema(description = "cart表")
-@TableName("hiolabs_cart")
-public class Cart {
+public class KeywordsCartVo {
 
     private Integer id;
 

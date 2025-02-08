@@ -34,7 +34,7 @@ public class AdController {
 
     private final AdService adService;
 
-    @PostMapping("/index")
+    @PostMapping
     public FruitGreetResponse<PageResult<AdVo>> index(@RequestBody FruitGreetPage page) {
         return FruitGreetResponse.success(adService.index(page));
     }

@@ -31,7 +31,9 @@ public enum FruitGreetError implements ErrorResponse<Integer> {
     NO_EXPRESS(1021, "暂无物流信息【1】"),
     QUERY_EXPRESS_ERROR(1022, "查询物流信息失败"),
     NAME_EXIST(1023, "重名了"),
-
+    GOODS_EMPTY(1024, "商品不存在"),
+    GOODS_LEAST_ONE(1025, "商品的规格数量至少1个"),
+    SKU_REPEAT(1026, "规格重复"),
     ;
 
     /**

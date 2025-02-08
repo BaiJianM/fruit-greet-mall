@@ -23,4 +23,6 @@ public class GoodsInfoVo {
 
     private List<Product> productList;
 
+    private Integer categoryId;
+
 }

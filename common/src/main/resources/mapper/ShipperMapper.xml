@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liyuyouguo.common.mapper.ShipperMapper">
+
+    <sql id="Base_Column_List">
+        ${alias}.id,
+        ${alias}.name,
+        ${alias}.code,
+        ${alias}.sort_order,
+        ${alias}.month_code,
+        ${alias}.customer_name,
+        ${alias}.enabled _url
+    </sql>
+
+</mapper>

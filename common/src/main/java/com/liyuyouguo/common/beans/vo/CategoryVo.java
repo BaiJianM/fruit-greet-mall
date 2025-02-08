@@ -15,4 +15,5 @@ import java.util.List;
 public class CategoryVo extends Category {
 
     private List<Goods> goodsList;
+
 }
