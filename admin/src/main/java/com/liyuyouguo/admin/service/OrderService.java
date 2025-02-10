@@ -135,7 +135,7 @@ public class OrderService {
      * @param regionId 区域id
      * @return String 区域名称
      */
-    private String getRegionName(Integer regionId) {
+    public String getRegionName(Integer regionId) {
         return regionMapper.selectList(Wrappers.lambdaQuery(Region.class).eq(Region::getId, regionId)).get(0).getName();
     }
 

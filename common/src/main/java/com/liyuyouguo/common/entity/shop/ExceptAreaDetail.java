@@ -22,7 +22,7 @@ public class ExceptAreaDetail {
     @JsonProperty("except_area_id")
     private Integer exceptAreaId;
 
-    private Integer area;
+    private String area;
 
     @JsonProperty("is_delete")
     private Integer isDelete;

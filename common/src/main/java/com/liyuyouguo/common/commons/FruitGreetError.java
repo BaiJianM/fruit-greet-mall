@@ -34,6 +34,8 @@ public enum FruitGreetError implements ErrorResponse<Integer> {
     GOODS_EMPTY(1024, "商品不存在"),
     GOODS_LEAST_ONE(1025, "商品的规格数量至少1个"),
     SKU_REPEAT(1026, "规格重复"),
+    GOODS_SN_REPEAT(1027, "商品编号重复"),
+    SKU_GOODS_EXIST(1028, "该规格下有商品，暂不能删除"),
     ;
 
     /**

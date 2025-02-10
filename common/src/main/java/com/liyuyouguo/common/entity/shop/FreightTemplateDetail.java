@@ -25,7 +25,7 @@ public class FreightTemplateDetail {
     @JsonProperty("group_id")
     private Integer groupId;
 
-    private Integer area;
+    private String area;
 
     @JsonProperty("is_delete")
     private Integer isDelete;
