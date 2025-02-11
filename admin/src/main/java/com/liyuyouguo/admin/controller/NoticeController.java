@@ -3,7 +3,6 @@ package com.liyuyouguo.admin.controller;
 import com.liyuyouguo.admin.service.NoticeService;
 import com.liyuyouguo.common.annotations.FruitGreetController;
 import com.liyuyouguo.common.beans.dto.shop.NoticeAddDto;
-import com.liyuyouguo.common.beans.dto.shop.NoticeDeleteDto;
 import com.liyuyouguo.common.beans.dto.shop.NoticeUpdateContentDto;
 import com.liyuyouguo.common.beans.dto.shop.NoticeUpdateDto;
 import com.liyuyouguo.common.commons.FruitGreetResponse;
@@ -14,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -49,8 +49,8 @@ public class NoticeController {
     }
 
     @PostMapping("/destroy")
-    public FruitGreetResponse<Void> destroyNotice(@RequestBody NoticeDeleteDto dto) {
-        noticeService.destroyNotice(dto);
+    public FruitGreetResponse<Void> destroyNotice(@RequestParam Integer id) {
+        noticeService.destroyNotice(id);
         return FruitGreetResponse.success();
     }
 

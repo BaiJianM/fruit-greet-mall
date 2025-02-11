@@ -12,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -32,8 +33,8 @@ public class SpecificationController {
     }
 
     @PostMapping("/getGoodsSpec")
-    public FruitGreetResponse<GoodsSpecVo> getGoodsSpec(@RequestBody GoodsSpecDto dto) {
-        return FruitGreetResponse.success(specificationService.getGoodsSpec(dto));
+    public FruitGreetResponse<GoodsSpecVo> getGoodsSpec(@RequestParam Integer id) {
+        return FruitGreetResponse.success(specificationService.getGoodsSpec(id));
     }
 
     // TODO 可能没用上这个接口
@@ -45,32 +46,26 @@ public class SpecificationController {
 
     // TODO 可能没用上这个接口
     @PostMapping("/productDele")
-    public FruitGreetResponse<Void> productDele(@RequestBody ProductDeleDto dto) {
-        specificationService.productDele(dto);
+    public FruitGreetResponse<Void> productDele(@RequestParam Integer id) {
+        specificationService.productDele(id);
         return FruitGreetResponse.success();
     }
 
     // TODO 可能没用上这个接口
     @PostMapping("/delePrimarySpec")
-    public FruitGreetResponse<Void> delePrimarySpec(@RequestBody ProductDeleSpecDto dto) {
-        specificationService.delePrimarySpec(dto);
+    public FruitGreetResponse<Void> delePrimarySpec(@RequestBody Integer id) {
+        specificationService.delePrimarySpec(id);
         return FruitGreetResponse.success();
     }
 
     @PostMapping("/detail")
-    public FruitGreetResponse<Specification> detail(@RequestBody SpecificationDetailDto dto) {
-        return FruitGreetResponse.success(specificationService.getDetail(dto));
+    public FruitGreetResponse<Specification> detail(@RequestParam Integer id) {
+        return FruitGreetResponse.success(specificationService.getDetail(id));
     }
 
     @PostMapping("/add")
     public FruitGreetResponse<Integer> add(@RequestBody SpecificationAddDto dto) {
         return FruitGreetResponse.success(specificationService.addSpecification(dto));
-    }
-
-    @PostMapping("/checkSn")
-    public FruitGreetResponse<Void> checkSn(@RequestBody CheckSnDto dto) {
-        specificationService.checkSn(dto.getSn());
-        return FruitGreetResponse.success();
     }
 
     @PostMapping("/update")
@@ -80,8 +75,8 @@ public class SpecificationController {
     }
 
     @PostMapping("/delete")
-    public FruitGreetResponse<Void> delete(@RequestBody DeleteSpecificationDto dto) {
-        specificationService.delete(dto);
+    public FruitGreetResponse<Void> delete(@RequestParam Integer id) {
+        specificationService.delete(id);
         return FruitGreetResponse.success();
     }
 

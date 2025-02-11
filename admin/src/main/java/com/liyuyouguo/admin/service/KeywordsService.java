@@ -3,7 +3,6 @@ package com.liyuyouguo.admin.service;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.liyuyouguo.common.beans.PageResult;
-import com.liyuyouguo.common.beans.vo.KeywordsCartVo;
 import com.liyuyouguo.common.entity.shop.Cart;
 import com.liyuyouguo.common.mapper.CartMapper;
 import com.liyuyouguo.common.utils.ConvertUtils;

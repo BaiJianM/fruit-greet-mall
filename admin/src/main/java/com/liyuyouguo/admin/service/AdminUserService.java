@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.liyuyouguo.common.beans.PageResult;
 import com.liyuyouguo.common.beans.dto.shop.SaveAddressDto;
 import com.liyuyouguo.common.beans.dto.shop.UpdateUserInfoDto;
-import com.liyuyouguo.common.beans.dto.shop.UserDestroyDto;
 import com.liyuyouguo.common.beans.dto.shop.UserStoreDto;
 import com.liyuyouguo.common.beans.vo.OrderAdminVo;
 import com.liyuyouguo.common.beans.vo.UserAddressVo;
@@ -30,7 +29,7 @@ import java.util.List;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class AdminUserService {
 
     private final UserMapper userMapper;
 
@@ -244,7 +243,7 @@ public class UserService {
         }
     }
 
-    public void destory(UserDestroyDto dto) {
-        userMapper.deleteById(dto.getId());
+    public void destory(Integer id) {
+        userMapper.deleteById(id);
     }
 }

@@ -1,12 +1,10 @@
 package com.liyuyouguo.admin.controller;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.liyuyouguo.admin.service.ShopCartService;
 import com.liyuyouguo.common.annotations.FruitGreetController;
 import com.liyuyouguo.common.beans.PageResult;
 import com.liyuyouguo.common.beans.vo.ShopCartVo;
 import com.liyuyouguo.common.commons.FruitGreetResponse;
-import com.liyuyouguo.common.entity.shop.Cart;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;

@@ -5,11 +5,9 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.liyuyouguo.common.beans.PageResult;
 import com.liyuyouguo.common.beans.dto.shop.*;
-import com.liyuyouguo.common.beans.dto.shop.GoodsStoreDto;
 import com.liyuyouguo.common.beans.vo.*;
 import com.liyuyouguo.common.commons.FruitGreetError;
 import com.liyuyouguo.common.commons.FruitGreetException;
-import com.liyuyouguo.common.commons.FruitGreetResponse;
 import com.liyuyouguo.common.entity.shop.*;
 import com.liyuyouguo.common.mapper.*;
 import com.liyuyouguo.common.utils.ConvertUtils;
@@ -18,11 +16,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * @author baijianmin
@@ -59,6 +55,9 @@ public class GoodsService {
 
     private PageResult<GoodsVo> getGoodsVoPage(Page<Goods> goodsPage) {
         List<GoodsVo> goodsList = new ArrayList<>();
+        if (goodsPage.getRecords().isEmpty()) {
+            return new PageResult<>();
+        }
         Collection<GoodsVo> goodsPageData = ConvertUtils.convertCollection(goodsPage.getRecords(), GoodsVo::new,
                 (s, t) -> {
                     t.setIsOnSale(s.getIsOnSale() == 1);
@@ -574,7 +573,7 @@ public class GoodsService {
 //        );
 //    }
 
-    public List<GoodsGallery> getGalleryList(Long goodsId) {
+    public List<GoodsGallery> galleryList(Integer goodsId) {
         return goodsGalleryMapper.selectList(
                 Wrappers.lambdaQuery(GoodsGallery.class)
                         .eq(GoodsGallery::getGoodsId, goodsId)
@@ -589,10 +588,10 @@ public class GoodsService {
         goodsGalleryMapper.insert(gallery);
     }
 
-    public GalleryListVo getGalleryList(GoodsGalleryListDto dto) {
+    public GalleryListVo getGalleryList(Integer goodsId) {
         List<GoodsGallery> galleryList = goodsGalleryMapper.selectList(
                 Wrappers.lambdaQuery(GoodsGallery.class)
-                        .eq(GoodsGallery::getGoodsId, dto.getGoodsId())
+                        .eq(GoodsGallery::getGoodsId, goodsId)
                         .eq(GoodsGallery::getIsDelete, 0)
                         .orderByAsc(GoodsGallery::getSortOrder)
         );
@@ -624,27 +623,25 @@ public class GoodsService {
         }
     }
 
-    public void deleteListPicUrl(GoodsDeleteListPicDto dto) {
-        goodsMapper.update(Wrappers.lambdaUpdate(Goods.class)
-                .eq(Goods::getId, dto.getId())
-                .set(Goods::getListPicUrl, 0));
+    public void deleteListPicUrl(Integer id) {
+        goodsMapper.update(Wrappers.lambdaUpdate(Goods.class).eq(Goods::getId, id).set(Goods::getListPicUrl, 0));
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void destroy(GoodsDestroyDto dto) {
+    public void destroy(Integer id) {
         // 更新商品表的删除状态
         goodsMapper.update(Wrappers.lambdaUpdate(Goods.class)
-                .eq(Goods::getId, dto.getId())
+                .eq(Goods::getId, id)
                 .set(Goods::getIsDelete, 1));
 
         // 更新产品表的删除状态
         productMapper.update(Wrappers.lambdaUpdate(Product.class)
-                .eq(Product::getGoodsId, dto.getId())
+                .eq(Product::getGoodsId, id)
                 .set(Product::getIsDelete, 1));
 
         // 更新商品规格表的删除状态
         goodsSpecificationMapper.update(Wrappers.lambdaUpdate(GoodsSpecification.class)
-                .eq(GoodsSpecification::getGoodsId, dto.getId())
+                .eq(GoodsSpecification::getGoodsId, id)
                 .set(GoodsSpecification::getIsDelete, 1));
     }
 

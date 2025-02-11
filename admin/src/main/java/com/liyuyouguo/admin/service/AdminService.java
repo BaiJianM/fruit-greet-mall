@@ -1,6 +1,5 @@
 package com.liyuyouguo.admin.service;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.liyuyouguo.common.beans.dto.shop.AdminAddDto;
@@ -13,11 +12,9 @@ import com.liyuyouguo.common.commons.FruitGreetException;
 import com.liyuyouguo.common.entity.shop.Admin;
 import com.liyuyouguo.common.entity.shop.Settings;
 import com.liyuyouguo.common.entity.shop.ShowSettings;
-import com.liyuyouguo.common.entity.shop.User;
 import com.liyuyouguo.common.mapper.AdminMapper;
 import com.liyuyouguo.common.mapper.SettingsMapper;
 import com.liyuyouguo.common.mapper.ShowSettingsMapper;
-import com.liyuyouguo.common.mapper.UserMapper;
 import com.liyuyouguo.common.utils.ConvertUtils;
 import com.liyuyouguo.common.utils.DateUtils;
 import lombok.RequiredArgsConstructor;
@@ -26,9 +23,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author baijianmin

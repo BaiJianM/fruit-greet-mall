@@ -1,6 +1,5 @@
 package com.liyuyouguo.admin.service;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.liyuyouguo.common.beans.PageResult;
@@ -33,6 +32,10 @@ public class ShopCartService {
         // 执行分页查询
         Page<Cart> cartData = cartMapper.selectPage(new Page<>(page, size),
                 Wrappers.lambdaQuery(Cart.class).like(Cart::getGoodsName, name).orderByDesc(Cart::getId));
+
+        if (cartData.getRecords().isEmpty()) {
+            return new PageResult<>();
+        }
 
         List<ShopCartVo> shopCarts = (List<ShopCartVo>) ConvertUtils.convertCollection(cartData.getRecords(), ShopCartVo::new, (s, t) -> {
             // 查询用户信息

@@ -2,7 +2,6 @@ package com.liyuyouguo.admin.service;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.liyuyouguo.common.beans.dto.shop.NoticeAddDto;
-import com.liyuyouguo.common.beans.dto.shop.NoticeDeleteDto;
 import com.liyuyouguo.common.beans.dto.shop.NoticeUpdateContentDto;
 import com.liyuyouguo.common.beans.dto.shop.NoticeUpdateDto;
 import com.liyuyouguo.common.entity.shop.Notice;
@@ -51,9 +50,8 @@ public class NoticeService {
                 .eq(Notice::getId, dto.getId()));
     }
 
-    public void destroyNotice(NoticeDeleteDto dto) {
-        noticeMapper.delete(Wrappers.lambdaQuery(Notice.class)
-                .eq(Notice::getId, dto.getId()));
+    public void destroyNotice(Integer id) {
+        noticeMapper.delete(Wrappers.lambdaQuery(Notice.class).eq(Notice::getId, id));
     }
 
 }

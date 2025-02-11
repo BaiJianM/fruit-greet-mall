@@ -4,10 +4,8 @@ import com.liyuyouguo.admin.service.GoodsService;
 import com.liyuyouguo.common.annotations.FruitGreetController;
 import com.liyuyouguo.common.beans.PageResult;
 import com.liyuyouguo.common.beans.dto.shop.*;
-import com.liyuyouguo.common.beans.dto.shop.GoodsStoreDto;
 import com.liyuyouguo.common.beans.vo.*;
 import com.liyuyouguo.common.commons.FruitGreetResponse;
-import com.liyuyouguo.common.entity.shop.Goods;
 import com.liyuyouguo.common.entity.shop.GoodsGallery;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -43,8 +41,8 @@ public class GoodsController {
     }
 
     @PostMapping("/copygoods")
-    public FruitGreetResponse<Integer> copyGoods(@RequestBody GoodsCopyDto goodsCopyDto) {
-        return FruitGreetResponse.success(goodsService.copyGoods(goodsCopyDto.getId()));
+    public FruitGreetResponse<Integer> copyGoods(@RequestParam Integer id) {
+        return FruitGreetResponse.success(goodsService.copyGoods(id));
     }
 
     @PostMapping("/updateStock")
@@ -59,8 +57,8 @@ public class GoodsController {
         return FruitGreetResponse.success();
     }
 
-    @GetMapping("/onsaleAction")
-    public FruitGreetResponse<PageResult<GoodsVo>> onSaleAction(@RequestParam(value = "page", defaultValue = "1") int page,
+    @GetMapping("/onSale")
+    public FruitGreetResponse<PageResult<GoodsVo>> onSale(@RequestParam(value = "page", defaultValue = "1") int page,
                                                                 @RequestParam(value = "size", defaultValue = "10") int size) {
         return FruitGreetResponse.success(goodsService.getOnSaleGoods(page, size));
     }
@@ -148,8 +146,8 @@ public class GoodsController {
 //    }
 
     @GetMapping("/galleryList")
-    public FruitGreetResponse<List<GoodsGallery>> galleryList(@RequestParam Long id) {
-        return FruitGreetResponse.success(goodsService.getGalleryList(id));
+    public FruitGreetResponse<List<GoodsGallery>> galleryList(@RequestParam Integer id) {
+        return FruitGreetResponse.success(goodsService.galleryList(id));
     }
 
     @PostMapping("/gallery")
@@ -159,8 +157,8 @@ public class GoodsController {
     }
 
     @PostMapping("getGalleryList")
-    public FruitGreetResponse<GalleryListVo> getGalleryList(@RequestBody GoodsGalleryListDto dto) {
-        return FruitGreetResponse.success(goodsService.getGalleryList(dto));
+    public FruitGreetResponse<GalleryListVo> getGalleryList(@RequestParam Integer goodsId) {
+        return FruitGreetResponse.success(goodsService.getGalleryList(goodsId));
     }
 
     @PostMapping("/deleteGalleryFile")
@@ -176,14 +174,14 @@ public class GoodsController {
     }
 
     @PostMapping("/deleteListPicUrl")
-    public FruitGreetResponse<Void> deleteListPicUrl(@RequestBody GoodsDeleteListPicDto dto) {
-        goodsService.deleteListPicUrl(dto);
+    public FruitGreetResponse<Void> deleteListPicUrl(@RequestParam Integer id) {
+        goodsService.deleteListPicUrl(id);
         return FruitGreetResponse.success();
     }
 
     @PostMapping("/destroy")
-    public FruitGreetResponse<Void> destroy(@RequestBody GoodsDestroyDto dto) {
-        goodsService.destroy(dto);
+    public FruitGreetResponse<Void> destroy(@RequestParam Integer id) {
+        goodsService.destroy(id);
         return FruitGreetResponse.success();
     }
 

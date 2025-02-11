@@ -2,7 +2,6 @@ package com.liyuyouguo.admin.controller;
 
 import com.liyuyouguo.admin.service.CategoryService;
 import com.liyuyouguo.common.annotations.FruitGreetController;
-import com.liyuyouguo.common.beans.dto.shop.CategoryDeleteDto;
 import com.liyuyouguo.common.beans.dto.shop.CategorySaveDto;
 import com.liyuyouguo.common.beans.dto.shop.CategoryUpdateSortDto;
 import com.liyuyouguo.common.beans.vo.CategoryVo;
@@ -81,14 +80,14 @@ public class CategoryController {
     }
 
     @PostMapping("/deleteBannerImage")
-    public FruitGreetResponse<Void> deleteBannerImage(@RequestBody CategoryDeleteDto dto) {
-        categoryService.deleteBannerImage(dto.getId());
+    public FruitGreetResponse<Void> deleteBannerImage(@RequestParam Integer id) {
+        categoryService.deleteBannerImage(id);
         return FruitGreetResponse.success();
     }
 
     @PostMapping("/deleteIconImage")
-    public FruitGreetResponse<Void> deleteIconImage(@RequestBody CategoryDeleteDto dto) {
-        categoryService.deleteIconImage(dto.getId());
+    public FruitGreetResponse<Void> deleteIconImage(@RequestParam Integer id) {
+        categoryService.deleteIconImage(id);
         return FruitGreetResponse.success();
     }
 

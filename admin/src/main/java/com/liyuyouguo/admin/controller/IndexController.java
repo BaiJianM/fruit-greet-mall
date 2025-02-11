@@ -24,7 +24,7 @@ public class IndexController {
 
     private final IndexService indexService;
 
-    @GetMapping("/index")
+    @GetMapping
     public FruitGreetResponse<DashboardVo> index() {
         return FruitGreetResponse.success(indexService.getDashboardInfo());
     }

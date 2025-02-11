@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.liyuyouguo.common.beans.FruitGreetPage;
 import com.liyuyouguo.common.beans.PageResult;
-import com.liyuyouguo.common.beans.dto.shop.AdDestoryDto;
 import com.liyuyouguo.common.beans.dto.shop.AdStoreDto;
 import com.liyuyouguo.common.beans.dto.shop.AdUpdateSortDto;
 import com.liyuyouguo.common.beans.vo.AdVo;
@@ -18,9 +17,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 /**
@@ -43,6 +39,9 @@ public class AdService {
                 .orderByAsc(Ad::getId));
         // 处理查询结果
         List<Ad> records = adPage.getRecords();
+        if (records.isEmpty()) {
+            return new PageResult<>();
+        }
         List<AdVo> data = (List<AdVo>) ConvertUtils.convertCollection(records, AdVo::new, (s, t) -> t.setEnabled(s.getEnabled() == 1)).orElseThrow();
         return ConvertUtils.convert(adPage, PageResult<AdVo>::new, (s, t) -> t.setRecords(data)).orElseThrow();
     }
@@ -73,10 +72,10 @@ public class AdService {
                 .eq(Goods::getIsDelete, 0));
     }
 
-    public void destory(AdDestoryDto dto) {
+    public void destory(Integer id) {
         adMapper.update(Wrappers.lambdaUpdate(Ad.class)
                 .set(Ad::getIsDelete, 1)
-                .eq(Ad::getId, dto.getId()));
+                .eq(Ad::getId, id));
     }
 
     public void saleStatus(Integer adId, String status) {

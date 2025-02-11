@@ -75,7 +75,7 @@ public class WebLogAspect {
                 } else {
                     paramsLogJson.put("请求返回", result);
                 }
-                log.info("Web接口日志: " + paramsLogJson);
+//                log.info("Web接口日志: " + paramsLogJson);
             } catch (Exception e) {
                 log.error("Web接口日志记录失败，错误信息: {}", e.getMessage());
             }

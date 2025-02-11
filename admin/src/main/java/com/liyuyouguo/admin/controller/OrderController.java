@@ -3,7 +3,10 @@ package com.liyuyouguo.admin.controller;
 import com.liyuyouguo.admin.service.OrderService;
 import com.liyuyouguo.common.annotations.FruitGreetController;
 import com.liyuyouguo.common.beans.PageResult;
-import com.liyuyouguo.common.beans.dto.shop.*;
+import com.liyuyouguo.common.beans.dto.shop.OrderPriceUpdateDto;
+import com.liyuyouguo.common.beans.dto.shop.OrderQueryAdminDto;
+import com.liyuyouguo.common.beans.dto.shop.SaveAdminMemoDto;
+import com.liyuyouguo.common.beans.dto.shop.SaveGoodsListDto;
 import com.liyuyouguo.common.beans.vo.OrderAdminVo;
 import com.liyuyouguo.common.beans.vo.OrderDetailAdminVo;
 import com.liyuyouguo.common.beans.vo.RegionAdminVo;
@@ -17,7 +20,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -33,12 +35,12 @@ public class OrderController {
 
     private final OrderService orderService;
 
-    @PostMapping
-    public FruitGreetResponse<PageResult<OrderAdminVo>> getOrderList(@RequestBody OrderQueryAdminDto dto) {
+    @GetMapping
+    public FruitGreetResponse<PageResult<OrderAdminVo>> getOrderList(OrderQueryAdminDto dto) {
         return FruitGreetResponse.success(orderService.getOrderList(dto));
     }
 
-    @GetMapping("/autoStatus")
+    @GetMapping("/getAutoStatus")
     public FruitGreetResponse<Integer> getAutoStatus() {
         return FruitGreetResponse.success(orderService.getAutoStatus());
     }

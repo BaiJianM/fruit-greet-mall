@@ -39,10 +39,10 @@ public class SpecificationService {
         return specificationMapper.selectList(Wrappers.lambdaQuery(Specification.class).gt(Specification::getId, 0));
     }
 
-    public GoodsSpecVo getGoodsSpec(GoodsSpecDto dto) {
+    public GoodsSpecVo getGoodsSpec(Integer id) {
         List<Product> productList = productMapper.selectList(
                 Wrappers.lambdaQuery(Product.class)
-                        .eq(Product::getGoodsId, dto.getId())
+                        .eq(Product::getGoodsId, id)
                         .eq(Product::getIsDelete, 0)
         );
         //TODO 这里只有一层，以后如果有多重型号，如一件商品既有颜色又有尺寸时，这里的代码是不对的。以后再写。
@@ -139,16 +139,16 @@ public class SpecificationService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void productDele(ProductDeleDto dto) {
+    public void productDele(Integer id) {
         // 查询商品规格 ID 和商品 ID
         Product product = productMapper.selectOne(
                 Wrappers.lambdaQuery(Product.class)
                         .select(Product::getGoodsSpecificationIds, Product::getGoodsId)
-                        .eq(Product::getId, dto.getId())
+                        .eq(Product::getId, id)
         );
 
         // 删除商品记录
-        productMapper.deleteById(dto.getId());
+        productMapper.deleteById(id);
 
         // 删除商品规格记录
         goodsSpecificationMapper.deleteById(product.getGoodsSpecificationIds());
@@ -178,17 +178,17 @@ public class SpecificationService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void delePrimarySpec(ProductDeleSpecDto dto) {
+    public void delePrimarySpec(Integer id) {
         // 删除商品相关规格
         productMapper.delete(
                 Wrappers.lambdaQuery(Product.class)
-                        .eq(Product::getGoodsId, dto.getId())
+                        .eq(Product::getGoodsId, id)
         );
 
         // 删除商品规格记录
         goodsSpecificationMapper.delete(
                 Wrappers.lambdaQuery(GoodsSpecification.class)
-                        .eq(GoodsSpecification::getGoodsId, dto.getId())
+                        .eq(GoodsSpecification::getGoodsId, id)
         );
 
         // 更新商品库存和零售价
@@ -196,13 +196,13 @@ public class SpecificationService {
                 Wrappers.lambdaUpdate(Goods.class)
                         .set(Goods::getGoodsNumber, 0)
                         .set(Goods::getRetailPrice, BigDecimal.ZERO)
-                        .eq(Goods::getId, dto.getId())
+                        .eq(Goods::getId, id)
         );
 
     }
 
-    public Specification getDetail(SpecificationDetailDto dto) {
-        return specificationMapper.selectById(dto.getId());
+    public Specification getDetail(Integer id) {
+        return specificationMapper.selectById(id);
     }
 
     public Integer addSpecification(SpecificationAddDto dto) {
@@ -213,31 +213,21 @@ public class SpecificationService {
         return specification.getId();
     }
 
-    public void checkSn(String sn) {
-        boolean exists = productMapper.selectCount(
-                Wrappers.lambdaQuery(Product.class).eq(Product::getGoodsSn, sn)
-        ) > 0;
-
-        if (exists) {
-            throw new FruitGreetException(FruitGreetError.GOODS_SN_REPEAT);
-        }
-    }
-
     public void update(UpdateSpecificationDto dto) {
         Specification specification = ConvertUtils.convert(dto, Specification::new).orElseThrow();
         specificationMapper.updateById(specification);
     }
 
-    public void delete(DeleteSpecificationDto dto) {
+    public void delete(Integer id) {
         List<GoodsSpecification> goodsSpecList =
                 goodsSpecificationMapper.selectList(Wrappers.lambdaQuery(GoodsSpecification.class)
-                        .eq(GoodsSpecification::getSpecificationId, dto.getId()));
+                        .eq(GoodsSpecification::getSpecificationId, id));
 
         if (!goodsSpecList.isEmpty()) {
             throw new FruitGreetException(FruitGreetError.SKU_GOODS_EXIST);
         }
 
-        specificationMapper.deleteById(dto.getId());
+        specificationMapper.deleteById(id);
     }
 
 }

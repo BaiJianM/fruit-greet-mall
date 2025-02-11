@@ -1,6 +1,7 @@
 package com.liyuyouguo.common.config.web.security;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.liyuyouguo.common.beans.UserInfo;
 import com.liyuyouguo.common.commons.SystemError;
 import com.liyuyouguo.common.entity.shop.Admin;
 import com.liyuyouguo.common.mapper.AdminMapper;
@@ -11,7 +12,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import com.liyuyouguo.common.beans.UserInfo;
 
 /**
  * spring security鉴权用户信息实现

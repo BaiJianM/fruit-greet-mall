@@ -36,7 +36,7 @@ public class AdminController {
 
     private final AdminService adminService;
 
-    @GetMapping("index")
+    @GetMapping
     public FruitGreetResponse<List<AdminVo>> index() {
         return FruitGreetResponse.success(adminService.index());
     }

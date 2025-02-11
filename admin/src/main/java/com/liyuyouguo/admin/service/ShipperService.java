@@ -99,8 +99,8 @@ public class ShipperService {
         }
     }
 
-    public void destory(ShipperDestoryDto dto) {
-        shipperMapper.deleteById(dto.getId());
+    public void destory(Integer id) {
+        shipperMapper.deleteById(id);
     }
 
     public List<FreightTemplate> freight() {
@@ -111,9 +111,7 @@ public class ShipperService {
         return regionMapper.selectList(Wrappers.lambdaQuery(Region.class).eq(Region::getType, 1));
     }
 
-    public FreightDetailVo getFreightDetail(FreightDetailDto dto) {
-        Integer templateId = dto.getId();
-
+    public FreightDetailVo getFreightDetail(Integer templateId) {
         // 获取非默认的运费规则
         List<FreightTemplateGroup> groups = freightTemplateGroupMapper.selectList(
                 Wrappers.lambdaQuery(FreightTemplateGroup.class)

@@ -1,21 +1,37 @@
 package com.liyuyouguo.common.beans.vo;
 
+import com.liyuyouguo.common.entity.shop.User;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * @author baijianmin
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class DashboardInfoVo {
 
-    private Integer newUser;
-    private Integer oldUser;
-    private Integer addCart;
-    private Integer addOrderNum;
-    private Integer addOrderSum;
-    private Integer payOrderNum;
-    private Integer payOrderSum;
-//    private List<User> newData;
-//    private List<User> oldData;
+    private Long newUser;
+
+    private Long oldUser;
+
+    private Long addCart;
+
+    private Long addOrderNum;
+
+    private BigDecimal addOrderSum;
+
+    private Long payOrderNum;
+
+    private BigDecimal payOrderSum;
+
+    private List<User> newData;
+
+    private List<User> oldData;
 
 }

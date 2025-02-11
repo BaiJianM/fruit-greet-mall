@@ -20,6 +20,6 @@ public class OrderQueryAdminDto {
     @JsonProperty("logistic_code")
     private String logisticCode;
 
-    private Integer status;
+    private String status;
 
 }

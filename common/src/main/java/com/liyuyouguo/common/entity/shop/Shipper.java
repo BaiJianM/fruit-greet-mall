@@ -33,7 +33,4 @@ public class Shipper {
     private String customerName;
 
     private Integer enabled;
-
-    @JsonProperty("is_delete")
-    private Integer isDelete;
 }

@@ -4,7 +4,6 @@ import com.liyuyouguo.admin.service.AdService;
 import com.liyuyouguo.common.annotations.FruitGreetController;
 import com.liyuyouguo.common.beans.FruitGreetPage;
 import com.liyuyouguo.common.beans.PageResult;
-import com.liyuyouguo.common.beans.dto.shop.AdDestoryDto;
 import com.liyuyouguo.common.beans.dto.shop.AdStoreDto;
 import com.liyuyouguo.common.beans.dto.shop.AdUpdateSortDto;
 import com.liyuyouguo.common.beans.vo.AdVo;
@@ -34,8 +33,8 @@ public class AdController {
 
     private final AdService adService;
 
-    @PostMapping
-    public FruitGreetResponse<PageResult<AdVo>> index(@RequestBody FruitGreetPage page) {
+    @GetMapping
+    public FruitGreetResponse<PageResult<AdVo>> index(FruitGreetPage page) {
         return FruitGreetResponse.success(adService.index(page));
     }
 
@@ -60,8 +59,8 @@ public class AdController {
     }
 
     @PostMapping("/destory")
-    public FruitGreetResponse<Void> destory(@RequestBody AdDestoryDto dto) {
-        adService.destory(dto);
+    public FruitGreetResponse<Void> destory(@RequestParam Integer id) {
+        adService.destory(id);
         return FruitGreetResponse.success();
     }
 

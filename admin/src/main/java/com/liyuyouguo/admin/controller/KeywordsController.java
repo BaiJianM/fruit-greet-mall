@@ -3,8 +3,6 @@ package com.liyuyouguo.admin.controller;
 import com.liyuyouguo.admin.service.KeywordsService;
 import com.liyuyouguo.common.annotations.FruitGreetController;
 import com.liyuyouguo.common.beans.PageResult;
-import com.liyuyouguo.common.beans.vo.CartVo;
-import com.liyuyouguo.common.beans.vo.KeywordsCartVo;
 import com.liyuyouguo.common.commons.FruitGreetResponse;
 import com.liyuyouguo.common.entity.shop.Cart;
 import lombok.RequiredArgsConstructor;

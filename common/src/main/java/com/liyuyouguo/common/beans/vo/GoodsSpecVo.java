@@ -1,7 +1,5 @@
 package com.liyuyouguo.common.beans.vo;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.liyuyouguo.common.entity.shop.GoodsSpecification;
 import com.liyuyouguo.common.entity.shop.Product;
 import lombok.AllArgsConstructor;
 import lombok.Data;

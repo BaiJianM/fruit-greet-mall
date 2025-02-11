@@ -74,8 +74,8 @@ public class ShipperController {
     }
 
     @PostMapping("/destory")
-    public FruitGreetResponse<Void> destory(@RequestBody ShipperDestoryDto dto) {
-        shipperService.destory(dto);
+    public FruitGreetResponse<Void> destory(@RequestParam Integer id) {
+        shipperService.destory(id);
         return FruitGreetResponse.success();
     }
 
@@ -89,9 +89,10 @@ public class ShipperController {
         return FruitGreetResponse.success(shipperService.getareadata());
     }
 
+    // TODO 可能没用到这个接口
     @PostMapping("/freightDetail")
-    public FruitGreetResponse<FreightDetailVo> freightDetail(@RequestBody FreightDetailDto dto) {
-        return FruitGreetResponse.success(shipperService.getFreightDetail(dto));
+    public FruitGreetResponse<FreightDetailVo> freightDetail(@RequestParam Integer id) {
+        return FruitGreetResponse.success(shipperService.getFreightDetail(id));
     }
 
     @PostMapping("/saveTable")
@@ -112,14 +113,14 @@ public class ShipperController {
     }
 
     @PostMapping("/exceptAreaDelete")
-    public FruitGreetResponse<Void> exceptAreaDelete(@RequestBody ExceptAreaDeleteDto dto) {
-        shipperService.exceptAreaDelete(dto.getId());
+    public FruitGreetResponse<Void> exceptAreaDelete(@RequestParam Integer id) {
+        shipperService.exceptAreaDelete(id);
         return FruitGreetResponse.success();
     }
 
     @PostMapping("/exceptAreaDetail")
-    public FruitGreetResponse<ExceptArea> exceptAreaDetail(@RequestBody ExceptAreaDeleteDto dto) {
-        return FruitGreetResponse.success(shipperService.getExceptAreaDetail(dto.getId()));
+    public FruitGreetResponse<ExceptArea> exceptAreaDetail(@RequestParam Integer id) {
+        return FruitGreetResponse.success(shipperService.getExceptAreaDetail(id));
     }
 
     @PostMapping("/saveExceptArea")
