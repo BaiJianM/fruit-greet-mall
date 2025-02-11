@@ -36,6 +36,7 @@ public enum FruitGreetError implements ErrorResponse<Integer> {
     SKU_REPEAT(1026, "规格重复"),
     GOODS_SN_REPEAT(1027, "商品编号重复"),
     SKU_GOODS_EXIST(1028, "该规格下有商品，暂不能删除"),
+    GOODS_HAS_AD(1029, "该商品已经有广告关联"),
     ;
 
     /**

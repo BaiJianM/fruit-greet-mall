@@ -7,6 +7,8 @@ import com.liyuyouguo.common.beans.PageResult;
 import com.liyuyouguo.common.beans.dto.shop.AdStoreDto;
 import com.liyuyouguo.common.beans.dto.shop.AdUpdateSortDto;
 import com.liyuyouguo.common.beans.vo.AdVo;
+import com.liyuyouguo.common.commons.FruitGreetError;
+import com.liyuyouguo.common.commons.FruitGreetException;
 import com.liyuyouguo.common.entity.shop.Ad;
 import com.liyuyouguo.common.entity.shop.Goods;
 import com.liyuyouguo.common.mapper.AdMapper;
@@ -43,6 +45,9 @@ public class AdService {
             return new PageResult<>();
         }
         List<AdVo> data = (List<AdVo>) ConvertUtils.convertCollection(records, AdVo::new, (s, t) -> t.setEnabled(s.getEnabled() == 1)).orElseThrow();
+        if (true) {
+            throw new FruitGreetException(FruitGreetError.SKU_ERROR);
+        }
         return ConvertUtils.convert(adPage, PageResult<AdVo>::new, (s, t) -> t.setRecords(data)).orElseThrow();
     }
 
@@ -61,7 +66,21 @@ public class AdService {
         if (dto.getId() > 0) {
             adMapper.update(updateOrInsertAd, Wrappers.lambdaUpdate(Ad.class).eq(Ad::getId, dto.getId()));
         } else {
-            adMapper.insert(updateOrInsertAd);
+            Ad ad = adMapper.selectOne(Wrappers.lambdaQuery(Ad.class)
+                    .eq(Ad::getIsDelete, 0)
+                    .eq(Ad::getGoodsId, dto.getGoodsId())
+            );
+            if (ad == null) {
+                updateOrInsertAd.setId(null);
+                if (updateOrInsertAd.getLinkType() == 0) {
+                    updateOrInsertAd.setLink("");
+                } else {
+                    updateOrInsertAd.setGoodsId(0);
+                }
+                adMapper.insert(updateOrInsertAd);
+            } else {
+                throw new FruitGreetException(FruitGreetError.GOODS_HAS_AD);
+            }
         }
         return ConvertUtils.convert(updateOrInsertAd, AdVo::new, (s, t) -> t.setEndTime(s.getEndTime())).orElseThrow();
     }

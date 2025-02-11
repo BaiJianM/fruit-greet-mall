@@ -92,7 +92,7 @@ public class FruitGreetResponse<T> extends ResponseEntity<FruitGreetResponse.Res
     }
 
     public static <T> FruitGreetResponse<T> warn(T data, ErrorResponse<Integer> error) {
-        return new FruitGreetResponse<>(new ResponseBody<>(data, error.getDescribe(), error.getCode()), HttpStatus.BAD_REQUEST);
+        return new FruitGreetResponse<>(new ResponseBody<>(data, error.getDescribe(), error.getCode()), HttpStatus.OK);
     }
 
     public static <T> FruitGreetResponse<T> fail() {
