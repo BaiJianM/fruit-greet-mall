@@ -18,5 +18,15 @@
         ${alias}.is_on_sale,
         ${alias}.is_delete
     </sql>
+    <select id="getProductInfoList" resultType="com.liyuyouguo.common.beans.vo.WapIndexVo">
+        select
+            p.goods_sn,
+            p.goods_id,
+            p.goods_specification_ids,
+            p.retail_price,
+            gs.value
+        from hiolabs_product p
+        left join hiolabs_goods_specification gs on p.goods_specification_ids = gs.id
+    </select>
 
 </mapper>
