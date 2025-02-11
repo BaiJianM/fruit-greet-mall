@@ -4,6 +4,7 @@ import com.liyuyouguo.admin.service.GoodsService;
 import com.liyuyouguo.common.annotations.FruitGreetController;
 import com.liyuyouguo.common.beans.PageResult;
 import com.liyuyouguo.common.beans.dto.shop.*;
+import com.liyuyouguo.common.beans.dto.shop.GoodsStoreDto;
 import com.liyuyouguo.common.beans.vo.*;
 import com.liyuyouguo.common.commons.FruitGreetResponse;
 import com.liyuyouguo.common.entity.shop.Goods;

@@ -91,10 +91,10 @@ public class WapController {
     }
 
     // TODO 接口可能没用到
-    @PostMapping("/store")
-    public FruitGreetResponse<Void> store(@RequestBody GoodsStoreDto dto) {
-        wapService.store(dto);
-        return FruitGreetResponse.success();
-    }
+//    @PostMapping("/store")
+//    public FruitGreetResponse<Void> store(@RequestBody GoodsStoreDto dto) {
+//        wapService.store(dto);
+//        return FruitGreetResponse.success();
+//    }
 
 }

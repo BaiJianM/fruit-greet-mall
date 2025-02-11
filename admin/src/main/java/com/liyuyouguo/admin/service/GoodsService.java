@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.liyuyouguo.common.beans.PageResult;
 import com.liyuyouguo.common.beans.dto.shop.*;
+import com.liyuyouguo.common.beans.dto.shop.GoodsStoreDto;
 import com.liyuyouguo.common.beans.vo.*;
 import com.liyuyouguo.common.commons.FruitGreetError;
 import com.liyuyouguo.common.commons.FruitGreetException;

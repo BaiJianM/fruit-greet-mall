@@ -253,19 +253,19 @@ public class WapService {
                 );
     }
 
-    @Transactional(rollbackFor = Exception.class)
-    public void store(GoodsStoreDto dto) {
-        cartMapper.update(Wrappers.lambdaUpdate(Cart.class)
-                .eq(Cart::getGoodsId, dto.getInfo().getId())
-                .set(Cart::getListPicUrl, dto.getInfo().getListPicUrl())
-        );
-        Integer id = dto.getInfo().getId();
-        if (id != null && id > 0) {
-            goodsMapper.updateById(dto.getInfo());
-        } else {
-            Goods info = dto.getInfo();
-            info.setId(null);
-            goodsMapper.insert(info);
-        }
-    }
+//    @Transactional(rollbackFor = Exception.class)
+//    public void store(GoodsStoreDto dto) {
+//        cartMapper.update(Wrappers.lambdaUpdate(Cart.class)
+//                .eq(Cart::getGoodsId, dto.getInfo().getId())
+//                .set(Cart::getListPicUrl, dto.getInfo().getListPicUrl())
+//        );
+//        Integer id = dto.getInfo().getId();
+//        if (id != null && id > 0) {
+//            goodsMapper.updateById(dto.getInfo());
+//        } else {
+//            Goods info = dto.getInfo();
+//            info.setId(null);
+//            goodsMapper.insert(info);
+//        }
+//    }
 }
