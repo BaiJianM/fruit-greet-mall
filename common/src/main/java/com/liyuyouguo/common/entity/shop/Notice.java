@@ -29,6 +29,6 @@ public class Notice {
     private LocalDateTime endTime;
 
     @JsonProperty("is_delete")
-    private Integer isDelete;
+    private Boolean isDelete;
 
 }

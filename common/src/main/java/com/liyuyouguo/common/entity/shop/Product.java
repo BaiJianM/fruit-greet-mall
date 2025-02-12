@@ -42,15 +42,15 @@ public class Product {
     private Double goodsWeight;
 
     @JsonProperty("has_change")
-    private Integer hasChange;
+    private Boolean hasChange;
 
     @JsonProperty("goods_name")
     private String goodsName;
 
     @JsonProperty("is_on_sale")
-    private Integer isOnSale;
+    private Boolean isOnSale;
 
     @JsonProperty("is_delete")
-    private Integer isDelete;
+    private Boolean isDelete;
 
 }

@@ -24,6 +24,6 @@ public class ShipperStoreDto {
     @JsonProperty("customer_name")
     private String customerName;
 
-    private Integer enabled;
+    private Boolean enabled;
 
 }

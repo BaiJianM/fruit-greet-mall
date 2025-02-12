@@ -71,9 +71,9 @@ public class CategoryService {
         category.setName(categorySaveDto.getName());
         category.setParentId(categorySaveDto.getParentId());
         category.setSortOrder(categorySaveDto.getSortOrder());
-        category.setIsShow(categorySaveDto.getIsShow() ? 1 : 0);
-        category.setIsChannel(categorySaveDto.getIsChannel() ? 1 : 0);
-        category.setIsCategory(categorySaveDto.getIsCategory() ? 1 : 0);
+        category.setIsShow(categorySaveDto.getIsShow());
+        category.setIsChannel(categorySaveDto.getIsChannel());
+        category.setIsCategory(categorySaveDto.getIsCategory());
 
         if (categorySaveDto.getId() != null && categorySaveDto.getId() > 0) {
             category.setId(categorySaveDto.getId());
@@ -113,7 +113,7 @@ public class CategoryService {
     public void updateChannelStatus(Integer id, Boolean status) {
         int isChannel = Boolean.TRUE.equals(status) ? 1 : 0;
 
-        categoryMapper.update(null, Wrappers.lambdaUpdate(Category.class)
+        categoryMapper.update(Wrappers.lambdaUpdate(Category.class)
                 .set(Category::getIsChannel, isChannel)
                 .eq(Category::getId, id));
     }

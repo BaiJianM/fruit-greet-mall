@@ -25,7 +25,7 @@ public class FreightTemplateGroup {
     private Integer templateId;
 
     @JsonProperty("is_default")
-    private Integer isDefault;
+    private Boolean isDefault;
 
     private String area;
 
@@ -46,6 +46,6 @@ public class FreightTemplateGroup {
     private BigDecimal freeByMoney;
 
     @JsonProperty("is_delete")
-    private Integer isDelete;
+    private Boolean isDelete;
 
 }

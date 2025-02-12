@@ -50,7 +50,7 @@ public class WapService {
             for (Goods good : goods) {
                 if (goodsId.equals(good.getId())) {
                     wapIndexVo.setName(good.getName() + "-" + wapIndexVo.getValue());
-                    wapIndexVo.setIsOnSale(good.getIsOnSale() == 1);
+                    wapIndexVo.setIsOnSale(good.getIsOnSale());
                     wapIndexVo.setListPicUrl(good.getListPicUrl());
                 }
             }
@@ -169,7 +169,7 @@ public class WapService {
                 Category parentCategory = categoryMapper.selectById(category.getParentId());
                 t.setCategoryPName(parentCategory.getName());
             }
-            t.setIsOnSale(s.getIsOnSale() == 1);
+            t.setIsOnSale(s.getIsOnSale());
         }).orElseThrow();
     }
 

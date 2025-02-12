@@ -31,6 +31,6 @@ public class GoodsSpecification {
     private String picUrl;
 
     @JsonProperty("is_delete")
-    private Integer isDelete;
+    private Boolean isDelete;
 
 }

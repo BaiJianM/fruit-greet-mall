@@ -58,8 +58,8 @@ public class OrderService {
             // 查询订单数据
             orderPage = orderMapper.selectPage(new Page<>(page, size),
                     Wrappers.lambdaQuery(Order.class)
-                            .like(Order::getOrderSn, "%" + queryDto.getOrderSn() + "%")
-                            .like(Order::getConsignee, "%" + queryDto.getConsignee() + "%")
+                            .like(StringUtils.isNotBlank(queryDto.getOrderSn()), Order::getOrderSn, "%" + queryDto.getOrderSn() + "%")
+                            .like(StringUtils.isNotBlank(queryDto.getConsignee()), Order::getConsignee, "%" + queryDto.getConsignee() + "%")
                             .in(Order::getOrderStatus, queryDto.getStatus())
                             .lt(Order::getOrderType, 7)
                             .orderByDesc(Order::getId)

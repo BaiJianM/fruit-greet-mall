@@ -67,16 +67,16 @@ public class Cart {
     private Integer freightTemplateId;
 
     @JsonProperty("is_on_sale")
-    private Integer isOnSale;
+    private Boolean isOnSale;
 
     @JsonProperty("add_time")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime addTime;
 
     @JsonProperty("is_fast")
-    private Integer isFast;
+    private Boolean isFast;
 
     @JsonProperty("is_delete")
-    private Integer isDelete;
+    private Boolean isDelete;
 
 }

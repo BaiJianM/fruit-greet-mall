@@ -31,7 +31,7 @@ public class SaveExceptAreaDto {
         private Integer freightType;
 
         @JsonProperty("is_delete")
-        private Integer isDelete;
+        private Boolean isDelete;
 
         private String content;
 

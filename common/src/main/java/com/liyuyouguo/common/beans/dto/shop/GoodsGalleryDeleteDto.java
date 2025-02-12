@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class GoodsGalleryDeleteDto {
 
-    private Long id;
+    private Integer id;
 
     private String url;
 

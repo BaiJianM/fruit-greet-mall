@@ -32,5 +32,5 @@ public class Shipper {
     @JsonProperty("customer_name")
     private String customerName;
 
-    private Integer enabled;
+    private Boolean enabled;
 }

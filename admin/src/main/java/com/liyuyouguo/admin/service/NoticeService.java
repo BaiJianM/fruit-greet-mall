@@ -45,13 +45,16 @@ public class NoticeService {
         Notice notice = new Notice();
         notice.setContent(dto.getContent());
         notice.setEndTime(dto.getTime());
-        notice.setIsDelete(dto.getTime().isAfter(LocalDateTime.now()) ? 0 : 1);
+        notice.setIsDelete(dto.getTime().isAfter(LocalDateTime.now()));
         return noticeMapper.update(notice, Wrappers.lambdaUpdate(Notice.class)
                 .eq(Notice::getId, dto.getId()));
     }
 
     public void destroyNotice(Integer id) {
-        noticeMapper.delete(Wrappers.lambdaQuery(Notice.class).eq(Notice::getId, id));
+        noticeMapper.update(Wrappers.lambdaUpdate(Notice.class)
+                .set(Notice::getIsDelete, 1)
+                .eq(Notice::getId, id)
+        );
     }
 
 }

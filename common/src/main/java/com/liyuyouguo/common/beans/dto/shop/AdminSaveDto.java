@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class AdminSaveDto {
 
-    private Long id;
+    private Integer id;
 
     private String username;
 

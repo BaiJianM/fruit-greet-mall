@@ -32,6 +32,6 @@ public class GoodsGallery {
     private Integer sortOrder;
 
     @JsonProperty("is_delete")
-    private Integer isDelete;
+    private Boolean isDelete;
 
 }

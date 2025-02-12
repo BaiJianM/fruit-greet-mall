@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class GoodsUpdateShortNameDto {
 
-    private Long id;
+    private Integer id;
 
     private String shortName;
 

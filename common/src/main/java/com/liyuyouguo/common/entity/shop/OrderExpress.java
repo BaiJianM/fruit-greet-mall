@@ -39,7 +39,7 @@ public class OrderExpress {
     private String traces;
 
     @JsonProperty("is_finish")
-    private Integer isFinish;
+    private Boolean isFinish;
 
     @JsonProperty("request_count")
     private Integer requestCount;

@@ -65,7 +65,7 @@ public class ShipperService {
 
     public PageResult<Shipper> getShipperList(ShipperListDto dto) {
         LambdaQueryWrapper<Shipper> query = Wrappers.lambdaQuery(Shipper.class)
-                .like(Shipper::getName, "%" + dto.getName() + "%")
+                .like(StringUtils.isNotBlank(dto.getName()), Shipper::getName, "%" + dto.getName() + "%")
                 .orderByAsc(Shipper::getSortOrder);
         Page<Shipper> shipperPage = shipperMapper.selectPage(new Page<>(dto.getPage(), dto.getSize()), query);
         return ConvertUtils.convert(shipperPage, PageResult<Shipper>::new).orElseThrow();
@@ -294,7 +294,7 @@ public class ShipperService {
         if (templateId > 0) {
             FreightTemplateGroup defaultGroup = dto.getDefaultData().get(0);
             defaultGroup.setTemplateId(templateId);
-            defaultGroup.setIsDefault(1);
+            defaultGroup.setIsDefault(true);
             defaultGroup.setId(null);
             freightTemplateGroupMapper.insert(defaultGroup);
             Integer defaultGroupId = defaultGroup.getId();

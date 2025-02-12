@@ -25,7 +25,7 @@ public class Goods {
     private Integer categoryId;
 
     @JsonProperty("is_on_sale")
-    private Integer isOnSale;
+    private Boolean isOnSale;
 
     private String name;
 
@@ -59,10 +59,10 @@ public class Goods {
     private Integer sortOrder;
 
     @JsonProperty("is_index")
-    private Integer isIndex;
+    private Boolean isIndex;
 
     @JsonProperty("is_new")
-    private Integer isNew;
+    private Boolean isNew;
 
     @JsonProperty("goods_unit")
     private String goodsUnit;
@@ -80,12 +80,12 @@ public class Goods {
     private Integer freightType;
 
     @JsonProperty("is_delete")
-    private Integer isDelete;
+    private Boolean isDelete;
 
     @JsonProperty("has_gallery")
-    private Integer hasGallery;
+    private Boolean hasGallery;
 
     @JsonProperty("has_done")
-    private Integer hasDone;
+    private Boolean hasDone;
 
 }

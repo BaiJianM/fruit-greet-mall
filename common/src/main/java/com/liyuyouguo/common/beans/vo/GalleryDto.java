@@ -14,7 +14,7 @@ public class GalleryDto {
 
     private Integer sortOrder;
 
-    private Integer isDelete;
+    private Boolean isDelete;
 
     private Integer goodsId;
 

@@ -36,7 +36,7 @@ public class Category {
     private Integer showIndex;
 
     @JsonProperty("is_show")
-    private Integer isShow;
+    private Boolean isShow;
 
     @JsonProperty("icon_url")
     private String iconUrl;
@@ -53,9 +53,9 @@ public class Category {
     private Integer pHeight;
 
     @JsonProperty("is_category")
-    private Integer isCategory;
+    private Boolean isCategory;
 
     @JsonProperty("is_channel")
-    private Integer isChannel;
+    private Boolean isChannel;
 
 }

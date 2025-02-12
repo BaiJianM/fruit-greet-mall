@@ -119,6 +119,6 @@ public class Order {
     private Integer orderType;
 
     @JsonProperty("is_delete")
-    private Integer isDelete;
+    private Boolean isDelete;
 
 }

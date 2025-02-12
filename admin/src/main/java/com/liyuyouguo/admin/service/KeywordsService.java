@@ -1,5 +1,6 @@
 package com.liyuyouguo.admin.service;
 
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.liyuyouguo.common.beans.PageResult;
@@ -22,7 +23,7 @@ public class KeywordsService {
 
     public PageResult<Cart> getCartList(int page, int size, String name) {
         Page<Cart> cartPage = cartMapper.selectPage(new Page<>(page, size), Wrappers.lambdaQuery(Cart.class)
-                .like(Cart::getGoodsName, "%" + name + "%")
+                .like(StringUtils.isNotBlank(name), Cart::getGoodsName, "%" + name + "%")
                 .orderByDesc(Cart::getId));
         return ConvertUtils.convert(cartPage, PageResult<Cart>::new).orElseThrow();
     }

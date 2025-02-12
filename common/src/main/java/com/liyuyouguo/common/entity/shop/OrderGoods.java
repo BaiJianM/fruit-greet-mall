@@ -54,6 +54,6 @@ public class OrderGoods {
     private Integer userId;
 
     @JsonProperty("is_delete")
-    private Integer isDelete;
+    private Boolean isDelete;
 
 }

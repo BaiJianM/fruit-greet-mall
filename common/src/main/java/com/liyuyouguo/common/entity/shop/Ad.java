@@ -50,7 +50,7 @@ public class Ad {
     private LocalDateTime endTime;
 
     @Schema(description = "unknown", example = "1")
-    private Integer enabled;
+    private Boolean enabled;
 
     @Schema(description = "unknown", example = "1")
     @JsonProperty("sort_order")
@@ -58,6 +58,6 @@ public class Ad {
 
     @Schema(description = "unknown", example = "1")
     @JsonProperty("is_delete")
-    private Integer isDelete;
+    private Boolean isDelete;
 
 }

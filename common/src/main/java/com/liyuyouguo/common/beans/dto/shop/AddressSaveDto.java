@@ -26,6 +26,6 @@ public class AddressSaveDto {
 
     private Integer userId;
 
-    private Integer isDefault;
+    private Boolean isDefault;
 
 }

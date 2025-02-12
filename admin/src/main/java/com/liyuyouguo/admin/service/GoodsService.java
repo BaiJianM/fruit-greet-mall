@@ -1,6 +1,7 @@
 package com.liyuyouguo.admin.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.liyuyouguo.common.beans.PageResult;
@@ -46,7 +47,7 @@ public class GoodsService {
 
     public PageResult<GoodsVo> getGoodsWithCategoryAndProduct(int page, int size, String name) {
         LambdaQueryWrapper<Goods> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.like(Goods::getName, "%" + name + "%")
+        queryWrapper.like(StringUtils.isNotBlank(name), Goods::getName, "%" + name + "%")
                 .eq(Goods::getIsDelete, 0)
                 .orderByAsc(Goods::getSortOrder);
         Page<Goods> goodsPage = goodsMapper.selectPage(new Page<>(page, size), queryWrapper);
@@ -58,11 +59,7 @@ public class GoodsService {
         if (goodsPage.getRecords().isEmpty()) {
             return new PageResult<>();
         }
-        Collection<GoodsVo> goodsPageData = ConvertUtils.convertCollection(goodsPage.getRecords(), GoodsVo::new,
-                (s, t) -> {
-                    t.setIsOnSale(s.getIsOnSale() == 1);
-                    t.setIsIndex(s.getIsIndex() == 1);
-                }).orElseThrow();
+        Collection<GoodsVo> goodsPageData = ConvertUtils.convertCollection(goodsPage.getRecords(), GoodsVo::new).orElseThrow();
         for (GoodsVo goods : goodsPageData) {
             Category category = categoryMapper.selectById(goods.getCategoryId());
             goods.setCategoryName(category != null ? category.getName() : "");
@@ -117,10 +114,10 @@ public class GoodsService {
         if (originalGoods == null) {
             throw new FruitGreetException(FruitGreetError.GOODS_EMPTY);
         }
-        // 删除原商品的 ID，设置 is_on_sale 为 0
+        // 删除原商品的 ID，设置 is_on_sale 为 false
         // 清空原商品的 ID
         originalGoods.setId(null);
-        originalGoods.setIsOnSale(0);
+        originalGoods.setIsOnSale(false);
 
         // 新增商品数据
         goodsMapper.insert(originalGoods);
@@ -345,8 +342,8 @@ public class GoodsService {
         Integer goodsId = goods.getId();
         Integer categoryId = dto.getCateId();
         newGoods.setCategoryId(categoryId);
-        newGoods.setIsIndex(goods.getIsIndex() ? 1 : 0);
-        newGoods.setIsNew(goods.getIsNew() ? 1 : 0);
+        newGoods.setIsIndex(goods.getIsIndex());
+        newGoods.setIsNew(goods.getIsNew());
 
         if (goodsId > 0) {
             goodsMapper.updateById(newGoods);
@@ -394,7 +391,7 @@ public class GoodsService {
                         .set(Cart::getGoodsSn, spec.getGoodsSn())
                         .eq(Cart::getProductId, spec.getId())
                         .eq(Cart::getIsDelete, 0));
-                Product product = ConvertUtils.convert(spec, Product::new, (s, t) -> t.setIsDelete(0)).orElseThrow();
+                Product product = ConvertUtils.convert(spec, Product::new, (s, t) -> t.setIsDelete(false)).orElseThrow();
                 productMapper.updateById(product);
 
                 goodsSpecificationMapper.update(Wrappers.lambdaUpdate(GoodsSpecification.class)
@@ -421,15 +418,15 @@ public class GoodsService {
         List<GalleryDto> galleryList = dto.getInfo().getGallery();
         for (int i = 0; i < galleryList.size(); i++) {
             GalleryDto gallery = galleryList.get(i);
-            if (gallery.getIsDelete() == 1 && gallery.getId() > 0) {
+            if (gallery.getIsDelete() && gallery.getId() > 0) {
                 goodsGalleryMapper.update(Wrappers.lambdaUpdate(GoodsGallery.class)
                         .set(GoodsGallery::getIsDelete, 1)
                         .eq(GoodsGallery::getId, gallery.getId()));
-            } else if (gallery.getIsDelete() == 0 && gallery.getId() > 0) {
+            } else if (!gallery.getIsDelete() && gallery.getId() > 0) {
                 goodsGalleryMapper.update(Wrappers.lambdaUpdate(GoodsGallery.class)
                         .set(GoodsGallery::getSortOrder, i)
                         .eq(GoodsGallery::getId, gallery.getId()));
-            } else if (gallery.getIsDelete() == 0 && gallery.getId() == 0) {
+            } else if (!gallery.getIsDelete() && gallery.getId() == 0) {
                 GoodsGallery newGallery = new GoodsGallery();
                 newGallery.setGoodsId(dto.getInfo().getId());
                 newGallery.setSortOrder(i);
@@ -450,7 +447,7 @@ public class GoodsService {
             Product product = new Product();
             product.setGoodsId(goodsId);
             product.setGoodsSpecificationIds(specification.getId().toString());
-            product.setIsOnSale(1);
+            product.setIsOnSale(true);
             productMapper.insert(product);
         }
     }

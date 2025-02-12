@@ -30,6 +30,6 @@ public class FreightTemplate {
     private Integer freightType;
 
     @JsonProperty("is_delete")
-    private Integer isDelete;
+    private Boolean isDelete;
 
 }

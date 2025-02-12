@@ -22,13 +22,13 @@ public class Keywords {
     private String keyword;
 
     @JsonProperty("is_hot")
-    private Integer isHot;
+    private Boolean isHot;
 
     @JsonProperty("is_default")
-    private Integer isDefault;
+    private Boolean isDefault;
 
     @JsonProperty("is_show")
-    private Integer isShow;
+    private Boolean isShow;
 
     @JsonProperty("sort_order")
     private Integer sortOrder;

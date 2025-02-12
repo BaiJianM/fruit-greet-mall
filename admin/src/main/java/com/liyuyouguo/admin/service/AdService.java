@@ -44,10 +44,7 @@ public class AdService {
         if (records.isEmpty()) {
             return new PageResult<>();
         }
-        List<AdVo> data = (List<AdVo>) ConvertUtils.convertCollection(records, AdVo::new, (s, t) -> t.setEnabled(s.getEnabled() == 1)).orElseThrow();
-        if (true) {
-            throw new FruitGreetException(FruitGreetError.SKU_ERROR);
-        }
+        List<AdVo> data = (List<AdVo>) ConvertUtils.convertCollection(records, AdVo::new).orElseThrow();
         return ConvertUtils.convert(adPage, PageResult<AdVo>::new, (s, t) -> t.setRecords(data)).orElseThrow();
     }
 

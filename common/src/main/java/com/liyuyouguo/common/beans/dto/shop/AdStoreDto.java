@@ -14,7 +14,7 @@ public class AdStoreDto {
 
     private Integer linkType;
 
-    private Integer enabled;
+    private Boolean enabled;
 
     private String endTime;
 

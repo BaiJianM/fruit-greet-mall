@@ -43,6 +43,6 @@ public class Admin {
 
     @Schema(description = "unknown", example = "1")
     @JsonProperty("is_delete")
-    private Integer isDelete;
+    private Boolean isDelete;
 
 }

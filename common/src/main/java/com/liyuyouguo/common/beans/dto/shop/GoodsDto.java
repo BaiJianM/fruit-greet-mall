@@ -74,13 +74,13 @@ public class GoodsDto {
     private Integer freightType;
 
     @JsonProperty("is_delete")
-    private Integer isDelete;
+    private Boolean isDelete;
 
     @JsonProperty("has_gallery")
-    private Integer hasGallery;
+    private Boolean hasGallery;
 
     @JsonProperty("has_done")
-    private Integer hasDone;
+    private Boolean hasDone;
 
     @JsonProperty("category_name")
     private String categoryName;

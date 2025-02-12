@@ -28,6 +28,6 @@ public class FreightTemplateDetail {
     private String area;
 
     @JsonProperty("is_delete")
-    private Integer isDelete;
+    private Boolean isDelete;
 
 }
