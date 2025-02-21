@@ -89,7 +89,7 @@ public class AddressService extends ServiceImpl<AddressMapper, Address> implemen
         }
         this.saveOrUpdate(address);
         // 如果设置为默认，则取消其它的默认
-        if (dto.getIsDefault() == 1) {
+        if (dto.getIsDefault()) {
             addressMapper.update(Wrappers.lambdaUpdate(Address.class)
                     .set(Address::getIsDefault, 0)
                     .eq(Address::getUserId, userId)

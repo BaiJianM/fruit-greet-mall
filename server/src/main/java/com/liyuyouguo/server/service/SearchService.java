@@ -31,7 +31,7 @@ public class SearchService {
         Integer userId = 1048;
         List<Keywords> keywordList = keywordsMapper.selectList(null);
         // 取出输入框默认的关键词
-        Keywords defaultKeyword = keywordList.stream().filter(k -> k.getIsDefault() == 1).findFirst().orElseThrow();
+        Keywords defaultKeyword = keywordList.stream().filter(Keywords::getIsDefault).findFirst().orElseThrow();
         // 取出热门关键词
         List<Keywords> hotKeywordList = keywordList.stream().collect(Collectors.toMap(Keywords::getKeyword, Function.identity(), (t, t1) -> t))
                 .values().stream().skip(10).toList();

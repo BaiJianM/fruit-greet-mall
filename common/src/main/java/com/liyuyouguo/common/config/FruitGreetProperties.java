@@ -23,15 +23,10 @@ public class FruitGreetProperties {
     private String domain;
 
     /**
-     * 设置微信小程序的appid
+     * 微信配置
      */
-    private String appid;
+    private WeChatProperties wx;
 
-    /**
-     * 设置微信小程序的Secret
-     */
-    private String secret;
 
-    private String appCode;
 
 }

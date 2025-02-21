@@ -188,6 +188,7 @@ public class GoodsService {
                 Wrappers.lambdaQuery(Goods.class)
                         .eq(Goods::getIsDelete, 0)
                         .le(Goods::getGoodsNumber, 0)
+                        .eq(Goods::getIsOnSale, 0)
                         .orderByAsc(Goods::getSortOrder)
         );
         return this.getGoodsVoPage(goodsPage);
@@ -337,8 +338,8 @@ public class GoodsService {
 
     @Transactional(rollbackFor = Exception.class)
     public Integer store(GoodsStoreDto dto) {
-        Goods newGoods = new Goods();
         GoodsDto goods = dto.getInfo();
+        Goods newGoods = ConvertUtils.convert(goods, Goods::new).orElseThrow();
         Integer goodsId = goods.getId();
         Integer categoryId = dto.getCateId();
         newGoods.setCategoryId(categoryId);
@@ -348,8 +349,8 @@ public class GoodsService {
         if (goodsId > 0) {
             goodsMapper.updateById(newGoods);
             cartMapper.update(Wrappers.lambdaUpdate(Cart.class)
-                    .set(Cart::getChecked, goods.getIsOnSale() ? 1 : 0)
-                    .set(Cart::getIsOnSale, goods.getIsOnSale() ? 1 : 0)
+                    .set(Cart::getChecked, goods.getIsOnSale())
+                    .set(Cart::getIsOnSale, goods.getIsOnSale())
                     .set(Cart::getListPicUrl, goods.getListPicUrl())
                     .set(Cart::getFreightTemplateId, goods.getFreightTemplateId())
                     .eq(Cart::getGoodsId, goodsId));

@@ -71,7 +71,7 @@ public class CartService {
                 .eq(Cart::getUserId, cartInfo.getCartTotal().getUserId())
                 .eq(Cart::getIsDelete, 0)
                 .eq(Cart::getIsFast, 1));
-        cart.setIsDelete(1);
+        cart.setIsDelete(true);
         cartMapper.updateById(cart);
         cartCountVo.setCartTotal(cartInfo.getCartTotal());
         return cartCountVo;
@@ -97,13 +97,13 @@ public class CartService {
             CartVo cartVo = ConvertUtils.convert(cart, CartVo::new).orElseThrow();
             Product product = productMapper.selectById(cart.getProductId());
             if (product == null) {
-                cart.setIsDelete(1);
+                cart.setIsDelete(true);
                 cartMapper.updateById(cart);
             } else {
                 BigDecimal retailPrice = product.getRetailPrice();
                 Integer productNum = product.getGoodsNumber();
-                if (productNum <= 0 || product.getIsOnSale() == 0) {
-                    cart.setChecked(0);
+                if (productNum <= 0 || !product.getIsOnSale()) {
+                    cart.setChecked(false);
                     cartMapper.updateById(cart);
                     cartVo.setNumber(0);
                 } else if (productNum > 0 && productNum < cart.getNumber()) {
@@ -117,7 +117,7 @@ public class CartService {
                 goodsAmount = goodsAmount.add(retailPrice.multiply(new BigDecimal(cart.getNumber())));
                 cartVo.setRetailPrice(retailPrice);
                 // TODO 这个if有待验证
-                if (cart.getChecked() == 1 && productNum > 0) {
+                if (cart.getChecked() && productNum > 0) {
                     checkedGoodsCount += cart.getNumber();
                     checkedGoodsAmount = checkedGoodsAmount.add(retailPrice.multiply(new BigDecimal(cart.getNumber())));
                 }
@@ -173,7 +173,7 @@ public class CartService {
 
         // 判断商品是否可以购买
         Goods goodsInfo = goodsMapper.selectById(goodsId);
-        if (goodsInfo == null || goodsInfo.getIsOnSale() == 0) {
+        if (goodsInfo == null || !goodsInfo.getIsOnSale()) {
             throw new FruitGreetException(FruitGreetError.ITEM_NOT_AVAILABLE);
         }
 
@@ -219,9 +219,9 @@ public class CartService {
             cartData.setAddPrice(retailPrice);
             cartData.setGoodsSpecifitionNameValue(String.join(";", goodsSpecifitionValues));
             cartData.setGoodsSpecifitionIds(productInfo.getGoodsSpecificationIds());
-            cartData.setChecked(1);
+            cartData.setChecked(true);
             cartData.setAddTime(currentTime);
-            cartData.setIsFast(1);
+            cartData.setIsFast(true);
 
             cartMapper.insert(cartData);
             return this.getCart(1);
@@ -249,7 +249,7 @@ public class CartService {
                 cartData.setAddPrice(retailPrice);
                 cartData.setGoodsSpecifitionNameValue(String.join(";", goodsSpecifitionValues));
                 cartData.setGoodsSpecifitionIds(productInfo.getGoodsSpecificationIds());
-                cartData.setChecked(1);
+                cartData.setChecked(true);
                 cartData.setAddTime(currentTime);
 
                 cartMapper.insert(cartData);
@@ -381,11 +381,11 @@ public class CartService {
                 cartData = this.getAgainCart(orderId);
             }
         }
-        List<CartVo> checkedGoodsList = cartData.getCartList().stream().filter(v -> v.getChecked() == 1).toList();
+        List<CartVo> checkedGoodsList = cartData.getCartList().stream().filter(Cart::getChecked).toList();
         for (CartVo cartVo : checkedGoodsList) {
             goodsCount += cartVo.getNumber();
             goodsMoney = goodsMoney.add(BigDecimal.valueOf(cartVo.getNumber()).multiply(cartVo.getRetailPrice()));
-            if (cartVo.getGoodsNumber() <= 0 || cartVo.getIsOnSale() == 0) {
+            if (cartVo.getGoodsNumber() <= 0 || !cartVo.getIsOnSale()) {
                 outStock++;
             }
         }
@@ -451,7 +451,7 @@ public class CartService {
                 // 不为空，说明有模板，那么应用模板，先去判断是否符合指定的包邮条件，不满足，那么根据type 是按件还是按重量
                 if (ex != null) {
                     FreightTemplateGroup groupData = freightTemplateGroupMapper.selectById(ex.getGroupId());
-                    if (groupData != null && groupData.getIsDelete() == 0) {
+                    if (groupData != null && !groupData.getIsDelete()) {
                         // 4种情况，1、free_by_number > 0  2,free_by_money > 0  3,free_by_number free_by_money > 0,4都等于0
                         freightPriceForItem = this.checkAndGetFreightPrice(item, groupData);
                     } else {
@@ -563,7 +563,7 @@ public class CartService {
             goodsCount += cartVo.getNumber();
             goodsAmount = goodsAmount.add(BigDecimal.valueOf(cartVo.getNumber()).multiply(cartVo.getRetailPrice()));
 
-            if (cartVo.getChecked() != null && cartVo.getChecked() == 1) {
+            if (cartVo.getChecked() != null && cartVo.getChecked()) {
                 checkedGoodsCount += cartVo.getNumber();
                 checkedGoodsAmount = checkedGoodsAmount.add(BigDecimal.valueOf(cartVo.getNumber()).multiply(cartVo.getRetailPrice()));
             }
@@ -604,7 +604,7 @@ public class CartService {
 
         // 查询商品信息，判断是否下架
         Goods goodsInfo = goodsMapper.selectById(goodsId);
-        if (goodsInfo == null || goodsInfo.getIsOnSale() == 0) {
+        if (goodsInfo == null || !goodsInfo.getIsOnSale()) {
             throw new FruitGreetException(FruitGreetError.ITEM_NOT_AVAILABLE);
         }
         // 取得规格的信息,判断规格库存
@@ -643,7 +643,7 @@ public class CartService {
             cartData.setAddPrice(retailPrice);
             cartData.setGoodsSpecifitionNameValue(String.join(";", goodsSpecifitionValue));
             cartData.setGoodsSpecifitionIds(productInfo.getGoodsSpecificationIds());
-            cartData.setChecked(1);
+            cartData.setChecked(true);
             cartData.setAddTime(currentTime);
 
             cartMapper.insert(cartData);
@@ -653,7 +653,7 @@ public class CartService {
                 throw new FruitGreetException(FruitGreetError.INSUFFICIENT_STOCK);
             }
             cartInfo.setRetailPrice(retailPrice);
-            cartInfo.setChecked(1);
+            cartInfo.setChecked(true);
             cartInfo.setNumber(number);
             cartMapper.updateById(cartInfo);
         }

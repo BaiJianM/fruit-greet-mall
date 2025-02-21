@@ -1,12 +1,8 @@
-package com.liyuyouguo.common.entity.shop;
+package com.liyuyouguo.common.beans.vo;
 
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
@@ -14,11 +10,7 @@ import java.time.LocalDateTime;
  * @author baijianmin
  */
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Schema(description = "hiolabs_order_express 表")
-@TableName("hiolabs_order_express")
-public class OrderExpress {
+public class OrderExpressVo {
 
     private Integer id;
 
@@ -65,5 +57,12 @@ public class OrderExpress {
 
     @JsonProperty("region_code")
     private String regionCode;
+
+    @JsonProperty("MonthCode")
+    private String monthCode;
+
+    @JsonProperty("send_time")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime sendTime;
 
 }

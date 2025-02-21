@@ -6,6 +6,7 @@ import com.liyuyouguo.common.entity.shop.OrderGoods;
 import com.liyuyouguo.common.entity.shop.User;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -15,8 +16,12 @@ import java.util.List;
 @Data
 public class OrderAdminVo {
 
-    private Long id;
+    private Integer id;
 
+    @JsonProperty("offline_pay")
+    private String offlinePay;
+
+    @JsonProperty("order_sn")
     private String orderSn;
 
     private String consignee;
@@ -67,5 +72,26 @@ public class OrderAdminVo {
     private String avatar;
 
     private String allAddress;
+
+    @JsonProperty("goods_price")
+    private BigDecimal goodsPrice;
+
+    @JsonProperty("change_price")
+    private BigDecimal changePrice;
+
+    @JsonProperty("actual_price")
+    private BigDecimal actualPrice;
+
+    @JsonProperty("freight_price")
+    private BigDecimal freightPrice;
+
+    @JsonProperty("admin_memo")
+    private String adminMemo;
+
+    @JsonProperty("print_status")
+    private Boolean printStatus;
+
+    @JsonProperty("order_status")
+    private Integer orderStatus;
 
 }

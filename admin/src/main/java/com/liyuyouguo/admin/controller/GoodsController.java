@@ -82,7 +82,7 @@ public class GoodsController {
         return FruitGreetResponse.success(goodsService.sort(page, size, index));
     }
 
-    @PostMapping("/saleStatus")
+    @GetMapping("/saleStatus")
     public FruitGreetResponse<Void> saleStatus(@RequestParam("id") Integer id,
                                                @RequestParam("status") String status) {
         goodsService.updateSaleStatus(id, status);

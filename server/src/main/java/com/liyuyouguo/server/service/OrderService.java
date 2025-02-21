@@ -650,9 +650,9 @@ public class OrderService {
                 throw new FruitGreetException(FruitGreetError.NO_EXPRESS);
             }
             long com = Math.abs(Duration.between(LocalDateTime.now(), updateTime).toMinutes());
-            int isFinish = expressInfo.getIsFinish();
+            boolean isFinish = expressInfo.getIsFinish();
 
-            if (isFinish == 1 || com < 20) {
+            if (isFinish || com < 20) {
                 // 返回物流信息
                 return expressInfo;
             } else {
@@ -672,7 +672,7 @@ public class OrderService {
                 String deliveryStatusDesc = getDeliveryStatus(deliverystatus);
 
                 // 是否已签收
-                int issign = lastExpressInfo.getIntValue("issign");
+                Boolean issign = lastExpressInfo.getBoolean("issign");
 
                 // 物流轨迹
                 String traces = lastExpressInfo.get("list").toString();
@@ -703,7 +703,7 @@ public class OrderService {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
                 .header("Content-Type", "application/json; charset=utf-8")
-                .header("Authorization", "APPCODE " + properties.getAppCode())
+                .header("Authorization", "APPCODE " + properties.getWx().getAppCode())
                 .GET()
                 .build();
 

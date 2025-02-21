@@ -3,14 +3,13 @@ package com.liyuyouguo.admin.controller;
 import com.liyuyouguo.admin.service.OrderService;
 import com.liyuyouguo.common.annotations.FruitGreetController;
 import com.liyuyouguo.common.beans.PageResult;
-import com.liyuyouguo.common.beans.dto.shop.OrderPriceUpdateDto;
-import com.liyuyouguo.common.beans.dto.shop.OrderQueryAdminDto;
-import com.liyuyouguo.common.beans.dto.shop.SaveAdminMemoDto;
-import com.liyuyouguo.common.beans.dto.shop.SaveGoodsListDto;
+import com.liyuyouguo.common.beans.dto.shop.*;
 import com.liyuyouguo.common.beans.vo.OrderAdminVo;
 import com.liyuyouguo.common.beans.vo.OrderDetailAdminVo;
+import com.liyuyouguo.common.beans.vo.OrderExpressVo;
 import com.liyuyouguo.common.beans.vo.RegionAdminVo;
 import com.liyuyouguo.common.commons.FruitGreetResponse;
+import com.liyuyouguo.common.entity.shop.OrderExpress;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -108,6 +107,36 @@ public class OrderController {
     public FruitGreetResponse<Void> updateOrderPrice(@RequestBody OrderPriceUpdateDto dto) {
         orderService.updateOrderPrice(dto);
         return FruitGreetResponse.success();
+    }
+
+    @PostMapping("/getOrderExpress")
+    public FruitGreetResponse<OrderExpress> getOrderExpress(@RequestParam Integer orderId) {
+        return FruitGreetResponse.success(orderService.getOrderExpress(orderId));
+    }
+
+    @GetMapping("/checkExpress")
+    public FruitGreetResponse<OrderExpress> checkExpress(@RequestParam Integer orderId) {
+        return FruitGreetResponse.success(orderService.checkExpress(orderId));
+    }
+
+    @GetMapping("/directPrintExpress")
+    public FruitGreetResponse<OrderExpressVo> directPrintExpress(@RequestParam Integer orderId) {
+        return FruitGreetResponse.success(orderService.directPrintExpress(orderId));
+    }
+
+    @GetMapping("/rePrintExpress")
+    public FruitGreetResponse<Integer> rePrintExpress(@RequestParam Integer orderId) {
+        return FruitGreetResponse.success(orderService.rePrintExpress(orderId));
+    }
+
+    @PostMapping("saveAddress")
+    public FruitGreetResponse<Integer> saveAddress(@RequestBody OrderSaveAddressDto dto) {
+        return FruitGreetResponse.success(orderService.saveAddress(dto));
+    }
+
+    @PostMapping("changeStatus")
+    public FruitGreetResponse<Integer> changeStatus(@RequestBody OrderChangStatusDto dto) {
+        return FruitGreetResponse.success(orderService.changeStatus(dto));
     }
 
 }

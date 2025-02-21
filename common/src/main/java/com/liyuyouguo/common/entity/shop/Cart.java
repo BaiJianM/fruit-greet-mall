@@ -58,7 +58,7 @@ public class Cart {
     @JsonProperty("goods_specifition_ids")
     private String goodsSpecifitionIds;
 
-    private Integer checked;
+    private Boolean checked;
 
     @JsonProperty("list_pic_url")
     private String listPicUrl;

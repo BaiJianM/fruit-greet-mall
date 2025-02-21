@@ -1,16 +1,20 @@
 package com.liyuyouguo.admin.service;
 
+import com.alibaba.fastjson2.JSON;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.liyuyouguo.common.beans.PageResult;
-import com.liyuyouguo.common.beans.dto.shop.OrderPriceUpdateDto;
-import com.liyuyouguo.common.beans.dto.shop.OrderQueryAdminDto;
-import com.liyuyouguo.common.beans.dto.shop.SaveAdminMemoDto;
-import com.liyuyouguo.common.beans.dto.shop.SaveGoodsListDto;
+import com.liyuyouguo.common.beans.dto.shop.*;
+import com.liyuyouguo.common.beans.enums.AliExpressDeliveryStatusEnum;
 import com.liyuyouguo.common.beans.vo.*;
+import com.liyuyouguo.common.beans.vo.express.AliExpressResponseVo;
+import com.liyuyouguo.common.commons.FruitGreetError;
+import com.liyuyouguo.common.commons.FruitGreetException;
 import com.liyuyouguo.common.entity.shop.*;
 import com.liyuyouguo.common.mapper.*;
+import com.liyuyouguo.common.service.ExpressService;
 import com.liyuyouguo.common.utils.ConvertUtils;
+import com.liyuyouguo.common.utils.DateUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -19,13 +23,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author baijianmin
@@ -49,6 +52,10 @@ public class OrderService {
 
     private final ProductMapper productMapper;
 
+    private final ExpressService expressService;
+
+    private final ShipperMapper shipperMapper;
+
     public PageResult<OrderAdminVo> getOrderList(OrderQueryAdminDto queryDto) {
         int page = queryDto.getPage();
         int size = queryDto.getSize();
@@ -60,14 +67,14 @@ public class OrderService {
                     Wrappers.lambdaQuery(Order.class)
                             .like(StringUtils.isNotBlank(queryDto.getOrderSn()), Order::getOrderSn, "%" + queryDto.getOrderSn() + "%")
                             .like(StringUtils.isNotBlank(queryDto.getConsignee()), Order::getConsignee, "%" + queryDto.getConsignee() + "%")
-                            .in(Order::getOrderStatus, queryDto.getStatus())
+                            .in(Order::getOrderStatus, Arrays.asList(queryDto.getStatus().split(",")))
                             .lt(Order::getOrderType, 7)
                             .orderByDesc(Order::getId)
             );
         } else {
             // 根据物流单号查询订单
             OrderExpress orderExpress = orderExpressMapper.selectOne(Wrappers.lambdaQuery(OrderExpress.class)
-                            .eq(OrderExpress::getLogisticCode, queryDto.getLogisticCode()));
+                    .eq(OrderExpress::getLogisticCode, queryDto.getLogisticCode()));
 
             if (orderExpress == null) {
                 return new PageResult<>();
@@ -235,8 +242,8 @@ public class OrderService {
             orderMapper.update(Wrappers.lambdaUpdate(Order.class)
                     .eq(Order::getId, dto.getOrderId())
                     .set(Order::getActualPrice, order.getActualPrice().subtract(changePrice))
-                            .set(Order::getOrderPrice, order.getOrderPrice().subtract(changePrice))
-                            .set(Order::getGoodsPrice, order.getGoodsPrice().subtract(changePrice)));
+                    .set(Order::getOrderPrice, order.getOrderPrice().subtract(changePrice))
+                    .set(Order::getGoodsPrice, order.getGoodsPrice().subtract(changePrice)));
         } else if (dto.getAddOrMinus() == 1) {
             // 增加商品数量
             orderGoodsMapper.update(Wrappers.lambdaUpdate(OrderGoods.class)
@@ -441,4 +448,102 @@ public class OrderService {
                 .set(Order::getOrderSn, orderSn));
     }
 
+    public OrderExpress getOrderExpress(Integer orderId) {
+
+        OrderExpress expressInfo = this.checkExpress(orderId);
+        // 计算时间差
+        boolean isLt60 = expressInfo.getUpdateTime() != null
+                && Duration.between(LocalDateTime.now(), expressInfo.getUpdateTime()).toMinutes() < 20;
+        // 如果is_finish == 1；或者 updateTime 小于 20分钟
+        if (expressInfo.getIsFinish() || isLt60) {
+            return expressInfo;
+        } else {
+            String shipperCode = expressInfo.getShipperCode();
+            String expressNo = expressInfo.getLogisticCode();
+            String code = shipperCode.substring(0, 2);
+            String shipperName = "";
+            // 顺丰的话需要在单号后面拼上寄件人或收件人手机号末四位
+            if ("SF".equals(code)) {
+                shipperName = "SFEXPRESS";
+                expressNo = expressNo + ':' + "2041";
+            } else {
+                shipperName = shipperCode;
+            }
+            AliExpressResponseVo express = expressService.getExpress(shipperName, expressNo);
+            if (express != null) {
+                AliExpressResponseVo.Result result = express.getResult();
+                String deliveryStatus = result.getDeliverystatus();
+                LocalDateTime newUpdateTime = null;
+                if (StringUtils.isNotBlank(result.getUpdateTime())) {
+                    newUpdateTime = DateUtils.parseTime(result.getUpdateTime());
+                }
+                expressInfo.setExpressStatus(AliExpressDeliveryStatusEnum.fromCode(deliveryStatus).getDesc());
+                expressInfo.setIsFinish("1".equals(result.getIssign()));
+                expressInfo.setTraces(JSON.toJSONString(result.getList()));
+                expressInfo.setUpdateTime(newUpdateTime);
+                orderExpressMapper.updateById(expressInfo);
+                return expressInfo;
+            } else {
+                throw new FruitGreetException(FruitGreetError.NO_EXPRESS_DATA);
+            }
+        }
+    }
+
+    public OrderExpress checkExpress(Integer orderId) {
+        OrderExpress expressInfo = orderExpressMapper.selectOne(Wrappers.lambdaQuery(OrderExpress.class)
+                .eq(OrderExpress::getOrderId, orderId)
+        );
+        if (expressInfo == null) {
+            throw new FruitGreetException(FruitGreetError.NO_EXPRESS_DATA);
+        }
+        return expressInfo;
+    }
+
+    public OrderExpressVo directPrintExpress(Integer orderId) {
+        OrderExpress expressInfo = orderExpressMapper.selectOne(Wrappers.lambdaQuery(OrderExpress.class)
+                .eq(OrderExpress::getOrderId, orderId)
+        );
+        Shipper shipper;
+        // TODO 这里不知道为什么只取两个快递的信息
+        if (expressInfo.getExpressType() < 4) {
+            shipper = shipperMapper.selectOne(Wrappers.lambdaQuery(Shipper.class)
+                    .eq(Shipper::getCode, "SF")
+            );
+        } else {
+            shipper = shipperMapper.selectOne(Wrappers.lambdaQuery(Shipper.class)
+                    .eq(Shipper::getCode, "YTO")
+            );
+        }
+        Shipper finalShipper = shipper;
+        return ConvertUtils.convert(expressInfo, OrderExpressVo::new, (s, t) -> {
+            t.setMonthCode(finalShipper.getMonthCode());
+            t.setSendTime(s.getAddTime());
+        }).orElseThrow();
+    }
+
+    public Integer rePrintExpress(Integer orderId) {
+        return orderMapper.update(Wrappers.lambdaUpdate(Order.class)
+                .eq(Order::getId, orderId)
+                .set(Order::getOrderSn, generateOrderNumber())
+        );
+    }
+
+    public Integer saveAddress(OrderSaveAddressDto dto) {
+        return orderMapper.update(Wrappers.lambdaUpdate(Order.class)
+                .eq(Order::getOrderSn, dto.getOrderSn())
+                .set(Order::getConsignee, dto.getName())
+                .set(Order::getMobile, dto.getMobile())
+                .set(Order::getAddress, dto.getAddress())
+                .set(Order::getProvince, dto.getAddOptions()[0])
+                .set(Order::getCity, dto.getAddOptions()[1])
+                .set(Order::getDistrict, dto.getAddOptions()[2])
+        );
+    }
+
+    public Integer changeStatus(OrderChangStatusDto dto) {
+        return orderMapper.update(Wrappers.lambdaUpdate(Order.class)
+                .eq(Order::getOrderSn, dto.getOrderSn())
+                .set(Order::getOrderStatus, dto.getStatus())
+        );
+    }
 }

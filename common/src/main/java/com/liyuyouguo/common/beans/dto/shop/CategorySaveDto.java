@@ -1,5 +1,6 @@
 package com.liyuyouguo.common.beans.dto.shop;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 /**
@@ -12,14 +13,19 @@ public class CategorySaveDto {
 
     private String name;
 
+    @JsonProperty("parent_id")
     private Integer parentId;
 
+    @JsonProperty("sort_order")
     private Integer sortOrder;
 
+    @JsonProperty("is_show")
     private Boolean isShow;
 
+    @JsonProperty("is_channel")
     private Boolean isChannel;
 
+    @JsonProperty("is_category")
     private Boolean isCategory;
 
 }
