@@ -1,6 +1,5 @@
 package com.liyuyouguo.common.beans.vo;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 /**
@@ -13,7 +12,6 @@ public class GalleryVo {
 
     private String url;
 
-    @JsonProperty("is_delete")
     private Integer isDelete;
 
 }

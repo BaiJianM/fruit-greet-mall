@@ -113,6 +113,9 @@ public class AdminUserService {
                 Wrappers.lambdaQuery(Address.class)
                         .eq(Address::getUserId, id));
 
+        if (addresses.getRecords().isEmpty()) {
+            return new PageResult<>();
+        }
         List<UserAddressVo> userAddressVos = (List<UserAddressVo>) ConvertUtils.convertCollection(addresses.getRecords(), UserAddressVo::new, (s, t) -> {
             String province = this.getRegionName(s.getProvinceId());
             String city = this.getRegionName(s.getCityId());
@@ -243,7 +246,7 @@ public class AdminUserService {
         }
     }
 
-    public void destory(Integer id) {
+    public void destroy(Integer id) {
         userMapper.deleteById(id);
     }
 }

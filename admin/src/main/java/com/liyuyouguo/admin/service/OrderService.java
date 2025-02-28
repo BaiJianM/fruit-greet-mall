@@ -28,7 +28,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author baijianmin
@@ -59,7 +58,6 @@ public class OrderService {
     public PageResult<OrderAdminVo> getOrderList(OrderQueryAdminDto queryDto) {
         int page = queryDto.getPage();
         int size = queryDto.getSize();
-
         Page<Order> orderPage;
         if (StringUtils.isBlank(queryDto.getLogisticCode())) {
             // 查询订单数据
@@ -86,9 +84,7 @@ public class OrderService {
                             .orderByDesc(Order::getId)
             );
         }
-
         return convertToOrderVoPage(orderPage);
-
     }
 
     private PageResult<OrderAdminVo> convertToOrderVoPage(Page<Order> orderPage) {

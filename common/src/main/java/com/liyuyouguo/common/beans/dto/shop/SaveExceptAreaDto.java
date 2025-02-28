@@ -1,6 +1,5 @@
 package com.liyuyouguo.common.beans.dto.shop;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.liyuyouguo.common.entity.shop.FreightTemplateGroup;
 import lombok.Data;
 
@@ -24,13 +23,10 @@ public class SaveExceptAreaDto {
 
         private String name;
 
-        @JsonProperty("package_price")
         private BigDecimal packagePrice;
 
-        @JsonProperty("freight_type")
         private Integer freightType;
 
-        @JsonProperty("is_delete")
         private Boolean isDelete;
 
         private String content;

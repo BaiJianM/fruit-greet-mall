@@ -36,12 +36,12 @@ public class WapController {
         return FruitGreetResponse.success(wapService.getProductList());
     }
 
-    @GetMapping("/onsale")
+    @GetMapping("/onSale")
     public FruitGreetResponse<List<WapIndexVo>> onSale() {
         return FruitGreetResponse.success(wapService.getOnSaleList());
     }
 
-    @GetMapping("/outsale")
+    @GetMapping("/outSale")
     public FruitGreetResponse<List<WapIndexVo>> outSale() {
         return FruitGreetResponse.success(wapService.getOutSaleList());
     }

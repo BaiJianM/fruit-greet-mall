@@ -2,38 +2,41 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://8.138.177.7:31552/hiolabsdb?useSSL=false&characterEncoding=utf8&serverTimezone=UTC
-    username: hiolabsdb
-    password: ^tPT4DwgTX9cKyOm
+    url: jdbc:mysql://8.138.177.7:31552/fruit_greet_mall?useSSL=false&characterEncoding=utf8&serverTimezone=UTC
+    username: fruit_greet_mall
+    password: yTTcK6GHhzPyGsNb
     #    url: jdbc:mysql://127.0.0.1:3306/hiolabsdb?useSSL=false&characterEncoding=utf8&serverTimezone=UTC
     #    username: root
     #    password: bjm152689.
     druid:
-      # Druid ??
-      initial-size: 5       # ??????
-      min-idle: 5           # ??????
-      max-active: 20        # ?????
-      max-wait: 60000       # ??????????
+      initial-size: 5
+      min-idle: 5
+      max-active: 20
+      max-wait: 60000
       time-between-eviction-runs-millis: 60000
       min-evictable-idle-time-millis: 300000
       validation-query: SELECT 1
       test-while-idle: true
       test-on-borrow: false
       test-on-return: false
-
-      # ????????
+      filters: stat,wall,slf4j
       stat-view-servlet:
-        enabled: true
+        enabled: false
         url-pattern: /druid/*
         login-username: admin
         login-password: admin123
         reset-enable: false
 
-      # ?? Web ????????
       web-stat-filter:
-        enabled: true
+        enabled: false
         url-pattern: /*
         exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*"
+      filter:
+        stat:
+          db-type: mysql
+          log-slow-sql: true
+          slow-sql-millis: 500
+          merge-sql: true
 
   data:
     redis:
@@ -51,7 +54,8 @@ spring:
       - /static/**
       - /resources/**
       - /auth/code
-      - /verify
+      - /login
+      - /auth/loginByWeixin
       - /**
   jwt:
     security-key: 3F4428472B4B6250655368566D5971337336763979244226452948404D635166
@@ -60,8 +64,10 @@ spring:
 mybatis-plus:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.liyuyouguo.common.entity
+  global-config:
+    db-config:
+      table-prefix: greet_
 #  configuration:
-#    # ????
 #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 springdoc:
@@ -85,3 +91,8 @@ fruit-shop:
       app-code: 71c30b338f314f96a2563e89ca9705e7
       app-key: 204814173
       app-secret: VmJ8RqkEAaTYcPwxCX5EMAaPNrLCFi0T
+  qiniu:
+    access-key: uUqVMihs8hW4d_zl3IwVGZVkLyffEqhDZ8ENocBB
+    secret-key: NtmhnqOA90fSaMDZMjjx9JG8fWHKptxNE5U14Evc
+    bucket: liyuyouguo
+    domain: http://ssdfkeavi.hn-bkt.clouddn.com/

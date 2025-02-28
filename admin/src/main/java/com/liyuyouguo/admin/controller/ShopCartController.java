@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author baijianmin
  */
 @Slf4j
-@FruitGreetController("/shopcart")
+@FruitGreetController("/shop/cart")
 @RequiredArgsConstructor
 @Validated
 public class ShopCartController {

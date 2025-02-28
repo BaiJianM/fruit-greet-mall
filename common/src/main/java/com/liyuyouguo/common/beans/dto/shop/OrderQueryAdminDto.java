@@ -1,6 +1,5 @@
 package com.liyuyouguo.common.beans.dto.shop;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 /**
@@ -17,7 +16,6 @@ public class OrderQueryAdminDto {
 
     private String consignee;
 
-    @JsonProperty("logistic_code")
     private String logisticCode;
 
     private String status;

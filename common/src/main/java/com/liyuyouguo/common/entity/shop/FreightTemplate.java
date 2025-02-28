@@ -1,7 +1,8 @@
 package com.liyuyouguo.common.entity.shop;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,21 +16,22 @@ import java.math.BigDecimal;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Schema(description = "hiolabs_freight_template 表")
-@TableName("hiolabs_freight_template")
+@Schema(description = "freight_template 表")
 public class FreightTemplate {
 
+    /**
+     * 主键
+     */
+    @Schema(description = "主键", example = "1")
+    @TableId(type = IdType.AUTO)
     private Integer id;
 
     private String name;
 
-    @JsonProperty("package_price")
     private BigDecimal packagePrice;
 
-    @JsonProperty("freight_type")
     private Integer freightType;
 
-    @JsonProperty("is_delete")
     private Boolean isDelete;
 
 }

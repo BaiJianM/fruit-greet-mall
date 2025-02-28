@@ -102,7 +102,7 @@ public class WebSecurityConfig {
                     // 允许所有域名进行跨域调用
                     List<String> allowList = Arrays.asList("http://127.0.0.1", "http://localhost",
                             "http://localhost:9528",
-                            "https://hw.wesavc.cn");
+                            "http://8.138.177.7");
                     corsConfiguration.setAllowedOriginPatterns(allowList);
                     // 允许跨越发送cookie
                     corsConfiguration.setAllowCredentials(true);

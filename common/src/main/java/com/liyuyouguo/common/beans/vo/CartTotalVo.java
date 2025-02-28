@@ -1,6 +1,5 @@
 package com.liyuyouguo.common.beans.vo;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -19,7 +18,6 @@ public class CartTotalVo {
 
     private BigDecimal checkedGoodsAmount;
 
-    @JsonProperty("user_id")
     private Integer userId;
 
     private Integer numberChange;

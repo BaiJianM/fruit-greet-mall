@@ -1,6 +1,5 @@
 package com.liyuyouguo.common.beans.vo;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 /**
@@ -13,21 +12,16 @@ public class GoodsSpecificationVo {
 
     private Long id;
 
-    @JsonProperty("goods_id")
     private Long goodsId;
 
-    @JsonProperty("specification_id")
     private Long specificationId;
 
     private String value;
 
-    @JsonProperty("pic_url")
     private String picUrl;
 
-    @JsonProperty("is_delete")
     private Boolean isDelete;
 
-    @JsonProperty("goods_number")
     private Integer goodsNumber;
 
 }

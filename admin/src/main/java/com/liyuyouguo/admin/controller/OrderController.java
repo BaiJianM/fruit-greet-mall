@@ -91,7 +91,7 @@ public class OrderController {
         return FruitGreetResponse.success(orderService.getAllRegions());
     }
 
-    @PostMapping("/orderpack")
+    @PostMapping("/orderPack")
     public FruitGreetResponse<Void> orderPack(@RequestParam Integer orderId) {
         orderService.updateOrderStatusToPacked(orderId);
         return FruitGreetResponse.success();

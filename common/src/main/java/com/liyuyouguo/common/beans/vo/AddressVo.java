@@ -1,6 +1,5 @@
 package com.liyuyouguo.common.beans.vo;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.liyuyouguo.common.beans.vo.interfaces.IAddress;
 import com.liyuyouguo.common.entity.shop.Address;
 import lombok.Data;
@@ -15,16 +14,12 @@ import lombok.EqualsAndHashCode;
 @Data
 public class AddressVo extends Address implements IAddress {
 
-    @JsonProperty("province_name")
     private String provinceName;
 
-    @JsonProperty("city_name")
     private String cityName;
 
-    @JsonProperty("district_name")
     private String districtName;
 
-    @JsonProperty("full_region")
     private String fullRegion;
 
 }

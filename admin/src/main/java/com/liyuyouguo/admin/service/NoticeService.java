@@ -45,7 +45,7 @@ public class NoticeService {
         Notice notice = new Notice();
         notice.setContent(dto.getContent());
         notice.setEndTime(dto.getTime());
-        notice.setIsDelete(dto.getTime().isAfter(LocalDateTime.now()));
+        notice.setIsDelete(dto.getTime().isBefore(LocalDateTime.now()));
         return noticeMapper.update(notice, Wrappers.lambdaUpdate(Notice.class)
                 .eq(Notice::getId, dto.getId()));
     }

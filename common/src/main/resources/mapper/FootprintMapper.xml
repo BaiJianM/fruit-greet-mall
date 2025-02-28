@@ -15,9 +15,9 @@
         <include refid="Base_Column_List">
             <property name="alias" value="f"/>
         </include>
-        from hiolabs_footprint f
-        left join hiolabs_goods g on f.goods_id = g.id
-        where f.user_id = #{userId} and f.is_delete = 0
+        from greet_footprint f
+        left join greet_goods g on f.goods_id = g.id
+        where f.user_id = #{userId}
         order by f.add_time desc
     </select>
 

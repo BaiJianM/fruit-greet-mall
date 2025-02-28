@@ -1,7 +1,8 @@
 package com.liyuyouguo.common.entity.shop;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,25 +14,24 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Schema(description = "hiolabs_goods_gallery 表")
-@TableName("hiolabs_goods_gallery")
+@Schema(description = "goods_gallery 表")
 public class GoodsGallery {
 
+    /**
+     * 主键
+     */
+    @Schema(description = "主键", example = "1")
+    @TableId(type = IdType.AUTO)
     private Integer id;
 
-    @JsonProperty("goods_id")
     private Integer goodsId;
 
-    @JsonProperty("img_url")
     private String imgUrl;
 
-    @JsonProperty("img_desc")
     private String imgDesc;
 
-    @JsonProperty("sort_order")
     private Integer sortOrder;
 
-    @JsonProperty("is_delete")
     private Boolean isDelete;
 
 }

@@ -1,6 +1,5 @@
 package com.liyuyouguo.common.beans.vo;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 /**
@@ -34,7 +33,6 @@ public class OrderHandleOptionVo {
     /**
      * 取消退款操作
      */
-    @JsonProperty("cancel_refund")
     private Boolean cancelRefund;
 
     public OrderHandleOptionVo() {

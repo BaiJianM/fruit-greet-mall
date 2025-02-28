@@ -1,7 +1,8 @@
 package com.liyuyouguo.common.entity.shop;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,42 +16,36 @@ import java.math.BigDecimal;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Schema(description = "hiolabs_product 表")
-@TableName("hiolabs_product")
+@Schema(description = "product 表")
 public class Product {
 
+    /**
+     * 主键
+     */
+    @Schema(description = "主键", example = "1")
+    @TableId(type = IdType.AUTO)
     private Integer id;
 
-    @JsonProperty("goods_id")
     private Integer goodsId;
 
-    @JsonProperty("goods_specification_ids")
     private String goodsSpecificationIds;
 
-    @JsonProperty("goods_sn")
     private String goodsSn;
 
-    @JsonProperty("goods_number")
     private Integer goodsNumber;
 
-    @JsonProperty("retail_price")
     private BigDecimal retailPrice;
 
     private BigDecimal cost;
 
-    @JsonProperty("goods_weight")
     private Double goodsWeight;
 
-    @JsonProperty("has_change")
     private Boolean hasChange;
 
-    @JsonProperty("goods_name")
     private String goodsName;
 
-    @JsonProperty("is_on_sale")
     private Boolean isOnSale;
 
-    @JsonProperty("is_delete")
     private Boolean isDelete;
 
 }

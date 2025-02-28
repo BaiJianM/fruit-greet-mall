@@ -1,5 +1,6 @@
 package com.liyuyouguo.common.config;
 
+import com.liyuyouguo.common.config.wx.WeChatProperties;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

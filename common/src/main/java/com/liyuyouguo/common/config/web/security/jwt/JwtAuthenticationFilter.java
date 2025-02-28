@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -41,6 +42,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private static final String SUFFIX = "/**";
 
+    private final Environment environment;
+
     @Override
     protected void doFilterInternal(
             HttpServletRequest request,
@@ -57,11 +60,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         // 是否为白名单中的uri
         boolean isWhite = Arrays.stream(securityProperties.getIgnoreUrls())
                 .anyMatch(ig -> {
-                    boolean matchAll = ig.equals(request.getRequestURI());
+                    String contextPath = environment.getProperty("server.servlet.context-path");
+                    boolean matchAll = ig.equals(request.getRequestURI().substring(contextPath.length()));
                     boolean matchPrefix = false;
                     try {
                         if (ig.contains(SUFFIX)) {
-                            matchPrefix = request.getRequestURI().startsWith(ig.substring(0, ig.indexOf(SUFFIX)));
+                            matchPrefix = request.getRequestURI().substring(contextPath.length()).startsWith(ig.substring(0, ig.indexOf(SUFFIX)));
                         }
                     } catch (Exception e) {
                         log.error("白名单匹配失败，错误信息: {}", e.getMessage());
@@ -80,12 +84,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         jwt = authHeader.substring(Constants.SystemInfo.AUTHORIZATION_PREFIX.length());
         if (StringUtils.isNotBlank(jwt) && SecurityContextHolder.getContext().getAuthentication() == null) {
             // 判断token是否过期
-            boolean tokenExpired;
+            boolean tokenExpired = false;
             try {
                 tokenExpired = jwtService.isTokenExpired(jwt);
             } catch (Exception e) {
                 log.error("非法的Token: {}", jwt);
-                return;
             }
             if (!tokenExpired) {
                 // 从token中解析出username

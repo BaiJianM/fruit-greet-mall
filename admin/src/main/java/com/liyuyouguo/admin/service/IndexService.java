@@ -4,8 +4,10 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.liyuyouguo.common.beans.vo.DashboardInfoVo;
 import com.liyuyouguo.common.beans.vo.DashboardVo;
+import com.liyuyouguo.common.beans.vo.QiNiuTokenVo;
 import com.liyuyouguo.common.entity.shop.*;
 import com.liyuyouguo.common.mapper.*;
+import com.liyuyouguo.common.service.QiNiuService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -35,6 +37,8 @@ public class IndexService {
     private final UserMapper userMapper;
 
     private final CartMapper cartMapper;
+
+    private final QiNiuService qiNiuService;
 
     public DashboardVo getDashboardInfo() {
         Long goodsOnSale = goodsMapper.selectCount(Wrappers.lambdaQuery(Goods.class)
@@ -211,4 +215,11 @@ public class IndexService {
         return new DashboardInfoVo(newUser, oldUser, addCart, addOrderNum, addOrderSum, payOrderNum, payOrderSum, newData, oldData);
     }
 
+    public QiNiuTokenVo getQiNiuToken() {
+        return qiNiuService.getToken();
+    }
+
+    public String getQiNiuDownloadUrl(String key) {
+        return qiNiuService.getDownloadUrl(key);
+    }
 }

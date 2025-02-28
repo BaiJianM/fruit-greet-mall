@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -52,18 +53,21 @@ public class IndexService {
                 .eq(Category::getIsShow, 1)
                 .eq(Category::getParentId, 0)
                 .orderByAsc(Category::getSortOrder));
-        List<CategoryVo> categoryVos = (List<CategoryVo>) ConvertUtils.convertCollection(categories, CategoryVo::new)
-                .orElseThrow(() -> new FruitGreetException(FruitGreetError.INDEX_ERROR));
-        categoryVos.forEach(categoryVo -> {
-            List<Goods> goods = goodsMapper.selectList(Wrappers.lambdaQuery(Goods.class)
-                    .eq(Goods::getCategoryId, categoryVo.getId())
-                    .ge(Goods::getGoodsNumber, 0)
-                    .eq(Goods::getIsOnSale, 1)
-                    .eq(Goods::getIsIndex, 1)
-                    .eq(Goods::getIsDelete, 0)
-                    .orderByAsc(Goods::getSortOrder));
-            categoryVo.setGoodsList(goods);
-        });
+        List<CategoryVo> categoryVos = new ArrayList<>();
+        if (!categories.isEmpty()) {
+            categoryVos = (List<CategoryVo>) ConvertUtils.convertCollection(categories, CategoryVo::new)
+                    .orElseThrow(() -> new FruitGreetException(FruitGreetError.INDEX_ERROR));
+            categoryVos.forEach(categoryVo -> {
+                List<Goods> goods = goodsMapper.selectList(Wrappers.lambdaQuery(Goods.class)
+                        .eq(Goods::getCategoryId, categoryVo.getId())
+                        .ge(Goods::getGoodsNumber, 0)
+                        .eq(Goods::getIsOnSale, 1)
+                        .eq(Goods::getIsIndex, 1)
+                        .eq(Goods::getIsDelete, 0)
+                        .orderByAsc(Goods::getSortOrder));
+                categoryVo.setGoodsList(goods);
+            });
+        }
         // TODO 这里少一个从token获取登录人id的操作
         Long userId = 1048L;
         List<Cart> carts = cartMapper.selectList(Wrappers.lambdaQuery(Cart.class)

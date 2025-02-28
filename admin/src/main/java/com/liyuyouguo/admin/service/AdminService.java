@@ -53,19 +53,17 @@ public class AdminService {
         }).orElseThrow();
     }
 
-    public Admin adminDetail(Long id) {
+    public Admin adminDetail(Integer id) {
         return adminMapper.selectOne(Wrappers.lambdaQuery(Admin.class)
                 .eq(Admin::getId, id));
     }
 
     public void adminAdd(AdminAddDto adminAddDto) {
-        String passwordSalt = "HIOLABS";
         String password = adminAddDto.getPassword();
 
         // 构造要插入的数据
         Admin upData = new Admin();
         upData.setUsername(adminAddDto.getUsername());
-        upData.setPasswordSalt(passwordSalt);
 
         // 处理密码
         if (password != null && !password.trim().isEmpty()) {
@@ -93,8 +91,7 @@ public class AdminService {
         if (change) {
             String newPassword = adminSaveDto.getNewPassword();
             if (newPassword != null && !newPassword.trim().isEmpty()) {
-                String hashedPassword = DigestUtils.md5DigestAsHex((newPassword + adminSaveDto.getPasswordSalt()).getBytes());
-                upData.setPassword(hashedPassword);
+                upData.setPassword(passwordEncoder.encode(newPassword));
             }
         }
         // 更新数据库

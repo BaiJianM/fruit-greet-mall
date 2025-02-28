@@ -73,9 +73,9 @@ public class ShipperController {
         return FruitGreetResponse.success();
     }
 
-    @PostMapping("/destory")
-    public FruitGreetResponse<Void> destory(@RequestParam Integer id) {
-        shipperService.destory(id);
+    @PostMapping("/destroy")
+    public FruitGreetResponse<Void> destroy(@RequestParam Integer id) {
+        shipperService.destroy(id);
         return FruitGreetResponse.success();
     }
 
@@ -84,12 +84,11 @@ public class ShipperController {
         return FruitGreetResponse.success(shipperService.freight());
     }
 
-    @GetMapping("/getareadata")
-    public FruitGreetResponse<List<Region>> getareadata() {
-        return FruitGreetResponse.success(shipperService.getareadata());
+    @GetMapping("/getAreaData")
+    public FruitGreetResponse<List<Region>> getAreaData() {
+        return FruitGreetResponse.success(shipperService.getAreaData());
     }
 
-    // TODO 可能没用到这个接口
     @PostMapping("/freightDetail")
     public FruitGreetResponse<FreightDetailVo> freightDetail(@RequestParam Integer id) {
         return FruitGreetResponse.success(shipperService.getFreightDetail(id));
@@ -107,7 +106,7 @@ public class ShipperController {
         return FruitGreetResponse.success();
     }
 
-    @GetMapping("/exceptarea")
+    @GetMapping("/exceptArea")
     public FruitGreetResponse<List<ExceptArea>> exceptarea() {
         return FruitGreetResponse.success(shipperService.exceptarea());
     }

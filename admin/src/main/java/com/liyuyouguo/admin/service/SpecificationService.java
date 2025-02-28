@@ -1,7 +1,9 @@
 package com.liyuyouguo.admin.service;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.liyuyouguo.common.beans.dto.shop.*;
+import com.liyuyouguo.common.beans.dto.shop.ProductUpdateDto;
+import com.liyuyouguo.common.beans.dto.shop.SpecificationAddDto;
+import com.liyuyouguo.common.beans.dto.shop.UpdateSpecificationDto;
 import com.liyuyouguo.common.beans.vo.GoodsSpecVo;
 import com.liyuyouguo.common.commons.FruitGreetError;
 import com.liyuyouguo.common.commons.FruitGreetException;

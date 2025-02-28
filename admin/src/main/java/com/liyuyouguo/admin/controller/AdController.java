@@ -53,14 +53,14 @@ public class AdController {
         return FruitGreetResponse.success(adService.store(dto));
     }
 
-    @PostMapping("/getallrelate")
-    public FruitGreetResponse<List<Goods>> getallrelate() {
-        return FruitGreetResponse.success(adService.getallrelate());
+    @GetMapping("/getAllRelate")
+    public FruitGreetResponse<List<Goods>> getAllRelate() {
+        return FruitGreetResponse.success(adService.getAllRelate());
     }
 
-    @PostMapping("/destory")
-    public FruitGreetResponse<Void> destory(@RequestParam Integer id) {
-        adService.destory(id);
+    @PostMapping("/destroy")
+    public FruitGreetResponse<Void> destroy(@RequestParam Integer id) {
+        adService.destroy(id);
         return FruitGreetResponse.success();
     }
 

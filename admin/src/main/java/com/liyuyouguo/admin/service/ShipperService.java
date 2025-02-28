@@ -99,7 +99,7 @@ public class ShipperService {
         }
     }
 
-    public void destory(Integer id) {
+    public void destroy(Integer id) {
         shipperMapper.deleteById(id);
     }
 
@@ -107,7 +107,7 @@ public class ShipperService {
         return freightTemplateMapper.selectList(Wrappers.lambdaQuery(FreightTemplate.class).eq(FreightTemplate::getIsDelete, 0));
     }
 
-    public List<Region> getareadata() {
+    public List<Region> getAreaData() {
         return regionMapper.selectList(Wrappers.lambdaQuery(Region.class).eq(Region::getType, 1));
     }
 

@@ -1,7 +1,8 @@
 package com.liyuyouguo.common.entity.shop;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,19 +16,21 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Schema(description = "hiolabs_search_history 表")
-@TableName("hiolabs_search_history")
+@Schema(description = "search_history 表")
 public class SearchHistory {
 
+    /**
+     * 主键
+     */
+    @Schema(description = "主键", example = "1")
+    @TableId(type = IdType.AUTO)
     private Integer id;
 
     private String keyword;
 
     private String from;
 
-    @JsonProperty("add_time")
     private LocalDateTime addTime;
 
-    @JsonProperty("user_id")
     private Integer userId;
 }

@@ -12,14 +12,16 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
-import com.liyuyouguo.common.commons.Constants;
 import com.liyuyouguo.common.config.express.AliExpressProperties;
 import com.liyuyouguo.common.config.mybatis.FillMetaObjectHandler;
 import com.liyuyouguo.common.config.operatelog.properties.OperateLogProperties;
+import com.liyuyouguo.common.config.qiniu.QiNiuProperties;
 import com.liyuyouguo.common.config.web.CustomHandlerInterceptor;
 import com.liyuyouguo.common.config.web.security.SecurityProperties;
 import com.liyuyouguo.common.config.web.security.jwt.JwtService;
+import com.liyuyouguo.common.config.wx.WeChatProperties;
 import com.liyuyouguo.common.service.ExpressService;
+import com.liyuyouguo.common.service.QiNiuService;
 import com.liyuyouguo.common.utils.RedisUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -44,8 +46,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Slf4j
 @Configuration
 @EnableConfigurationProperties({OperateLogProperties.class, FruitGreetProperties.class,
-        WeChatProperties.class, AliExpressProperties.class})
-@Import(ExpressService.class)
+        WeChatProperties.class, AliExpressProperties.class, QiNiuProperties.class})
+@Import({ExpressService.class, QiNiuService.class})
 @EnableTransactionManagement
 public class FruitGreetAutoConfiguration {
     // region mysql数据库配置
@@ -160,8 +162,6 @@ public class FruitGreetAutoConfiguration {
             registry.addInterceptor(new CustomHandlerInterceptor(redisUtils, jwtService))
                     .addPathPatterns("/**")
                     .excludePathPatterns("/", "/css/**", "fonts/**", "/images/**", "/js/**")
-                    .excludePathPatterns(Constants.SystemInfo.LOGIN_URL)
-                    .excludePathPatterns("/api" + Constants.SystemInfo.LOGIN_URL)
                     .excludePathPatterns(securityProperties.getIgnoreUrls());
         }
     }

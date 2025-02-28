@@ -67,13 +67,7 @@ public class CategoryService {
     }
 
     public Category store(CategorySaveDto categorySaveDto) {
-        Category category = new Category();
-        category.setName(categorySaveDto.getName());
-        category.setParentId(categorySaveDto.getParentId());
-        category.setSortOrder(categorySaveDto.getSortOrder());
-        category.setIsShow(categorySaveDto.getIsShow());
-        category.setIsChannel(categorySaveDto.getIsChannel());
-        category.setIsCategory(categorySaveDto.getIsCategory());
+        Category category = ConvertUtils.convert(categorySaveDto, Category::new).orElseThrow();
 
         if (categorySaveDto.getId() != null && categorySaveDto.getId() > 0) {
             category.setId(categorySaveDto.getId());

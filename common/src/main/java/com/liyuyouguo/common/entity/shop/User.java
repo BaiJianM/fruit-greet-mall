@@ -1,8 +1,9 @@
 package com.liyuyouguo.common.entity.shop;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,10 +17,14 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Schema(description = "hiolabs_user 表")
-@TableName("hiolabs_user")
+@Schema(description = "user 表")
 public class User {
 
+    /**
+     * 主键
+     */
+    @Schema(description = "主键", example = "1")
+    @TableId(type = IdType.AUTO)
     private Integer id;
 
     private String nickname;
@@ -34,28 +39,22 @@ public class User {
 
     private Integer birthday;
 
-    @JsonProperty("register_time")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime registerTime;
 
-    @JsonProperty("last_login_time")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime lastLoginTime;
 
-    @JsonProperty("last_login_ip")
     private String lastLoginIp;
 
     private String mobile;
 
-    @JsonProperty("register_ip")
     private String registerIp;
 
     private String avatar;
 
-    @JsonProperty("weixin_openid")
     private String weixinOpenid;
 
-    @JsonProperty("name_mobile")
     private Integer nameMobile;
 
     private String country;

@@ -42,7 +42,7 @@ public class AdminController {
     }
 
     @PostMapping("/adminDetail")
-    public FruitGreetResponse<Admin> adminDetail(@RequestParam Long id) {
+    public FruitGreetResponse<Admin> adminDetail(@RequestParam Integer id) {
         return FruitGreetResponse.success(adminService.adminDetail(id));
     }
 
@@ -53,13 +53,8 @@ public class AdminController {
     }
 
     @PostMapping("/adminSave")
-    public FruitGreetResponse<Void> adminSave(@RequestBody Map<String, Object> requestBody) {
-        // 获取 user 数据
-        AdminSaveDto adminSaveDto = ConvertUtils.convert(requestBody.get("user"), AdminSaveDto::new)
-                .orElseThrow(() -> new IllegalArgumentException("参数错误"));
-        // 获取 change 变量
-        boolean change = Boolean.parseBoolean(requestBody.get("change").toString());
-        adminService.adminSave(adminSaveDto, change);
+    public FruitGreetResponse<Void> adminSave(@RequestParam Boolean change, @RequestBody AdminSaveDto dto) {
+        adminService.adminSave(dto, change);
         return FruitGreetResponse.success();
     }
 

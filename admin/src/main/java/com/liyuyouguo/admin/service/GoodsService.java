@@ -67,14 +67,16 @@ public class GoodsService {
             List<Product> products = productMapper.selectList(new LambdaQueryWrapper<Product>()
                     .eq(Product::getGoodsId, goods.getId())
                     .eq(Product::getIsDelete, 0));
-            List<ProductVo> productVos = (List<ProductVo>) ConvertUtils.convertCollection(products, ProductVo::new,
-                    (s, t) -> t.setIsOnSale(s.getIsOnSale().toString())).orElseThrow();
-            for (ProductVo product : productVos) {
-                GoodsSpecification spec = goodsSpecificationMapper.selectById(product.getGoodsSpecificationIds());
-                product.setValue(spec != null ? spec.getValue() : "");
+            if (!products.isEmpty()) {
+                List<ProductVo> productVos = (List<ProductVo>) ConvertUtils.convertCollection(products, ProductVo::new,
+                        (s, t) -> t.setIsOnSale(s.getIsOnSale().toString())).orElseThrow();
+                for (ProductVo product : productVos) {
+                    GoodsSpecification spec = goodsSpecificationMapper.selectById(product.getGoodsSpecificationIds());
+                    product.setValue(spec != null ? spec.getValue() : "");
+                }
+                goods.setProduct(productVos);
+                goodsList.add(goods);
             }
-            goods.setProduct(productVos);
-            goodsList.add(goods);
         }
         return ConvertUtils.convert(goodsPage, PageResult<GoodsVo>::new, (s, t) -> t.setRecords(goodsList)).orElseThrow();
     }
@@ -254,13 +256,13 @@ public class GoodsService {
         );
     }
 
-    public void updateIndexShowStatus(Integer id, String status) {
+    public void updateIndexShowStatus(GoodsIndexShowStatusDto dto) {
         // 将status转换为0或1
-        int stat = "true".equals(status) ? 1 : 0;
+        int stat = "true".equals(dto.getStatus()) ? 1 : 0;
 
         // 更新商品的首页显示状态
         goodsMapper.update(Wrappers.lambdaUpdate(Goods.class)
-                .eq(Goods::getId, id)
+                .eq(Goods::getId, dto.getId())
                 .set(Goods::getIsIndex, stat)
         );
     }
@@ -540,6 +542,9 @@ public class GoodsService {
     }
 
     public void checkSku(CheckSkuDto dto) {
+        if (dto.getId() == null) {
+            return;
+        }
         Product existingProduct;
         if (dto.getId() > 0) {
             existingProduct = productMapper.selectOne(Wrappers.lambdaQuery(Product.class)

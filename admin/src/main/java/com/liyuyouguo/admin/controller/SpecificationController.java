@@ -2,7 +2,9 @@ package com.liyuyouguo.admin.controller;
 
 import com.liyuyouguo.admin.service.SpecificationService;
 import com.liyuyouguo.common.annotations.FruitGreetController;
-import com.liyuyouguo.common.beans.dto.shop.*;
+import com.liyuyouguo.common.beans.dto.shop.ProductUpdateDto;
+import com.liyuyouguo.common.beans.dto.shop.SpecificationAddDto;
+import com.liyuyouguo.common.beans.dto.shop.UpdateSpecificationDto;
 import com.liyuyouguo.common.beans.vo.GoodsSpecVo;
 import com.liyuyouguo.common.commons.FruitGreetResponse;
 import com.liyuyouguo.common.entity.shop.Specification;

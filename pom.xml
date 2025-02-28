@@ -28,7 +28,7 @@
         <!-- 数据库中间件版本 -->
         <mybatis-plus.version>3.5.5</mybatis-plus.version>
         <!-- 阿里Druid数据库连接池版本 -->
-        <druid.version>1.2.20</druid.version>
+        <druid.version>1.2.23</druid.version>
         <!-- knife4j版本 -->
         <knife4j.version>4.3.0</knife4j.version>
         <!-- 客户端解析工具版本 -->
@@ -39,6 +39,8 @@
         <easypoi.version>4.4.0</easypoi.version>
         <!-- 微信小程序SDK -->
         <weixin-java-miniapp.version>4.7.0</weixin-java-miniapp.version>
+        <!--七牛云文件存储-->
+        <qiniu.sdk.version>7.18.0</qiniu.sdk.version>
     </properties>
 
     <modules>
@@ -156,6 +158,12 @@
             <groupId>com.github.binarywang</groupId>
             <artifactId>weixin-java-miniapp</artifactId>
             <version>${weixin-java-miniapp.version}</version>
+        </dependency>
+        <!--七牛云文件存储-->
+        <dependency>
+            <groupId>com.qiniu</groupId>
+            <artifactId>qiniu-java-sdk</artifactId>
+            <version>${qiniu.sdk.version}</version>
         </dependency>
     </dependencies>
 

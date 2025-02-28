@@ -25,8 +25,8 @@
             p.goods_specification_ids,
             p.retail_price,
             gs.value
-        from hiolabs_product p
-        left join hiolabs_goods_specification gs on p.goods_specification_ids = gs.id
+        from greet_product p
+        left join greet_goods_specification gs on p.goods_specification_ids = gs.id
     </select>
 
 </mapper>

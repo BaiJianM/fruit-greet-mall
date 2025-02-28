@@ -1,6 +1,5 @@
 package com.liyuyouguo.common.beans.dto.shop;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 /**
@@ -15,7 +14,6 @@ public class ShowSettingsDto {
 
     private Integer channel;
 
-    @JsonProperty("index_banner_img")
     private Integer indexBannerImg;
 
     private Integer notice;

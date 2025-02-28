@@ -1,7 +1,8 @@
 package com.liyuyouguo.common.entity.shop;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,46 +16,40 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Schema(description = "hiolabs_settings 表")
-@TableName("hiolabs_settings")
+@Schema(description = "settings 表")
 public class Settings {
 
+    /**
+     * 主键
+     */
+    @Schema(description = "主键", example = "1")
+    @TableId(type = IdType.AUTO)
     private Integer id;
 
-    @JsonProperty("auto_delivery")
     private Integer autoDelivery;
 
     private String name;
 
     private String tel;
 
-    @JsonProperty("province_name")
     private String provinceName;
 
-    @JsonProperty("city_name")
     private String cityName;
 
-    @JsonProperty("exp_area_name")
     private String expAreaName;
 
     private String address;
 
-    @JsonProperty("discovery_img_height")
     private Integer discoveryImgHeight;
 
-    @JsonProperty("discovery_img")
     private String discoveryImg;
 
-    @JsonProperty("goods_id")
     private Integer goodsId;
 
-    @JsonProperty("city_id")
     private Integer cityId;
 
-    @JsonProperty("province_id")
     private Integer provinceId;
 
-    @JsonProperty("district_id")
     private Integer districtId;
 
     private LocalDateTime countdown;

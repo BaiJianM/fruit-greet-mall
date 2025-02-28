@@ -82,13 +82,13 @@ public class AdService {
         return ConvertUtils.convert(updateOrInsertAd, AdVo::new, (s, t) -> t.setEndTime(s.getEndTime())).orElseThrow();
     }
 
-    public List<Goods> getallrelate() {
+    public List<Goods> getAllRelate() {
         return goodsMapper.selectList(Wrappers.lambdaQuery(Goods.class)
                 .eq(Goods::getIsOnSale, 1)
                 .eq(Goods::getIsDelete, 0));
     }
 
-    public void destory(Integer id) {
+    public void destroy(Integer id) {
         adMapper.update(Wrappers.lambdaUpdate(Ad.class)
                 .set(Ad::getIsDelete, 1)
                 .eq(Ad::getId, id));

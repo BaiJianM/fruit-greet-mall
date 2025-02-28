@@ -1,6 +1,5 @@
 package com.liyuyouguo.common.beans.vo;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.liyuyouguo.common.entity.shop.User;
 import lombok.Data;
 
@@ -16,7 +15,6 @@ public class UserLoginInfoVo {
 
     private User userInfo;
 
-    @JsonProperty("is_new")
     private Boolean isNew;
 
 }

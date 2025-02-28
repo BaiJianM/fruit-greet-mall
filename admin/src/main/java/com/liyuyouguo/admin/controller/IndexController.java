@@ -4,6 +4,7 @@ import com.liyuyouguo.admin.service.IndexService;
 import com.liyuyouguo.common.annotations.FruitGreetController;
 import com.liyuyouguo.common.beans.vo.DashboardInfoVo;
 import com.liyuyouguo.common.beans.vo.DashboardVo;
+import com.liyuyouguo.common.beans.vo.QiNiuTokenVo;
 import com.liyuyouguo.common.commons.FruitGreetResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +33,16 @@ public class IndexController {
     @GetMapping("/main")
     public FruitGreetResponse<DashboardInfoVo> mainDashboard(@RequestParam Integer pindex) {
         return FruitGreetResponse.success(indexService.getDashboardInfo(pindex));
+    }
+
+    @GetMapping("getQiNiuToken")
+    public FruitGreetResponse<QiNiuTokenVo> getQiNiuToken() {
+        return FruitGreetResponse.success(indexService.getQiNiuToken());
+    }
+
+    @GetMapping("getQiNiuDownloadUrl")
+    public FruitGreetResponse<String> getQiNiuDownloadUrl(@RequestParam String key) {
+        return FruitGreetResponse.success(indexService.getQiNiuDownloadUrl(key));
     }
 
 }

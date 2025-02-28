@@ -40,7 +40,7 @@ public class GoodsController {
         return FruitGreetResponse.success(goodsService.getExpressData());
     }
 
-    @PostMapping("/copygoods")
+    @PostMapping("/copyGoods")
     public FruitGreetResponse<Integer> copyGoods(@RequestParam Integer id) {
         return FruitGreetResponse.success(goodsService.copyGoods(id));
     }
@@ -97,9 +97,8 @@ public class GoodsController {
     }
 
     @PostMapping("/indexShowStatus")
-    public FruitGreetResponse<Void> indexShowStatus(@RequestParam("id") Integer id,
-                                                    @RequestParam("status") String status) {
-        goodsService.updateIndexShowStatus(id, status);
+    public FruitGreetResponse<Void> indexShowStatus(@RequestBody GoodsIndexShowStatusDto dto) {
+        goodsService.updateIndexShowStatus(dto);
         return FruitGreetResponse.success();
     }
 

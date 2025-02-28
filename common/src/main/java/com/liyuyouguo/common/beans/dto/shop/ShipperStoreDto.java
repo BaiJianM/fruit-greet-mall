@@ -1,6 +1,5 @@
 package com.liyuyouguo.common.beans.dto.shop;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 /**
@@ -15,13 +14,10 @@ public class ShipperStoreDto {
 
     private String code;
 
-    @JsonProperty("sort_order")
     private Integer sortOrder;
 
-    @JsonProperty("month_code")
     private String monthCode;
 
-    @JsonProperty("customer_name")
     private String customerName;
 
     private Boolean enabled;
